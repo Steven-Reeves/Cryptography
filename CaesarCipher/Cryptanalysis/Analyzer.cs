@@ -8,13 +8,14 @@ namespace Cryptanalysis
     public class Analyzer
     {
         string _cipherText;
-        List<Tuple<string, int>> _decryptCandidates; // <plaintext, fitnessScore>
+        List<(string, int)> _decryptCandidates; // <plaintext, fitnessScore>
+
         readonly List<(char, char)> DIGRAPHS = new List<(char, char)>
         {
             ('t', 'h'), ('e', 'r'), ('o', 'n'), ('a', 'n'), ('r', 'e'), ('h', 'e'), ('i', 'n'), ('e', 'd'), ('n', 'd'), ('h', 'a'), ('a', 't'), ('e', 'n'),
             ('e', 's'), ('o', 'f'), ('o', 'r'), ('n', 't'), ('e', 'a'), ('t', 'i'), ('t', 'o'), ('i', 't'), ('s', 't'), ('i', 'o'), ('l', 'e'), ('i', 's'),
             ('o', 'u'), ('a', 'r'), ('a', 's'), ('d', 'e'), ('r', 't'), ('v', 'e'), ('s', 's'), ('e', 'e'), ('t', 't'), ('f', 'f'), ('l', 'l'), ('m', 'm'),
-            ('o', 'o'),
+            ('o', 'o')
         };
 
         readonly List<string> TRIGRAPHS = new List<string>  //Includes common 3-letter words
@@ -25,12 +26,12 @@ namespace Cryptanalysis
 
         public Analyzer()
         {
-            _decryptCandidates = new List<Tuple<string, int>>();
+            _decryptCandidates = new List<(string, int)>();
         }
 
         public Analyzer(string cipherText)
         {
-            _decryptCandidates = new List<Tuple<string, int>>();
+            _decryptCandidates = new List<(string, int)>();
             _cipherText = cipherText;
         }
 
