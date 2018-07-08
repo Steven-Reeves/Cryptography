@@ -34,21 +34,29 @@ namespace Cryptanalysis
             _cipherText = cipherText;
         }
 
-        int ScoreText(string plainText)
+        int DigraphScore(string plainText)
         {
             var text = plainText.ToCharArray();
             var score = 0;
 
-            foreach(var d in DIGRAPHS)
+            foreach (var d in DIGRAPHS)
             {
-                for(int i = 0; i < plainText.Length - 1; i++)
+                for (int i = 0; i < plainText.Length - 1; i++)
                 {
-                    if(d.Item1 == text[i] && d.Item2 == text[i+1])
+                    if (d.Item1 == text[i] && d.Item2 == text[i + 1])
                     {
                         score++;
                     }
                 }
             }
+
+            return score;
+        }
+
+        int TrigraphScore(string plainText)
+        {
+            var text = plainText.ToCharArray();
+            var score = 0;
 
             foreach (var t in TRIGRAPHS)
             {
@@ -63,7 +71,7 @@ namespace Cryptanalysis
                 }
             }
 
-            return score; //final score here
+            return score;
         }
 
         public void TestScore()
@@ -72,8 +80,9 @@ namespace Cryptanalysis
             string testEnglish = "thisisablockofnormalenglishtexttocheckonmycaesarciphercryptanalysisithasnospacesorspecialcharactersthequickbrownfoxjumpedoverthelazydogimjustgoingtotypethisonelastsentancespellingisjustalittleimportantinthistesttextfurthermoreitsopponentwillbecheatingbyusingtriplethecharactercountthisstringhastotryandmatchthefitnessscorethisrecievesthisiscurrentlyonlyanalyzingusingdigraphsnevermindiwentandaddedtrigraphsholycowthisissupergoodnowiaddedcommonthreeletterwordsandthescoringisnotevenclose";
             string testGarbage = "";
 
-            var score = ScoreText(testEnglish);
-            Console.WriteLine(testEnglish + "\n" + "Score: " + score + "\n\n");
+            var score1 = DigraphScore(testEnglish);
+            var score2 = TrigraphScore(testEnglish);
+            Console.WriteLine(testEnglish + "\n" + "Digraph Score: " + score1 + "\n" + "Trigraph Score: " + score2 + "\n\n");
 
             for(int i = 0; i < testEnglish.Length * 3; i++)
             {
@@ -82,8 +91,9 @@ namespace Cryptanalysis
                 testGarbage += letter;
             }
 
-            score = ScoreText(testGarbage);
-            Console.WriteLine(testGarbage + "\n" + "Score: " + score + "\n\n");
+            score1 = DigraphScore(testGarbage);
+            score2 = TrigraphScore(testGarbage);
+            Console.WriteLine(testGarbage + "\n" + "Digraph Score: " + score1 + "\n" + "Trigraph Score: " + score2 + "\n\n");
         }
     }
 }
