@@ -29,7 +29,7 @@ namespace MyConsole
             Console.WriteLine("Please enter the Caeser Key...");
             UserKey = Convert.ToInt32(Console.ReadLine());
 
-            // Would be nice: Loop here until we get a valid input
+            // TODO: "Would be nice" Loop here until we get a valid input
             Console.WriteLine("Please enter input text file (with .txt)");
             InFile = Console.ReadLine();         
             try
@@ -44,7 +44,7 @@ namespace MyConsole
             Console.WriteLine("Please enter output text file (with .txt)");
             OutFile = Console.ReadLine();
 
-            if(UserChoice[0] == 'E')
+            if (UserChoice[0] == 'E')
             {
                 output = caesar.Encrypt(input, UserKey);
                 try

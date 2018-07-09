@@ -19,7 +19,6 @@ namespace CaesarCipher
             }
 
             // Check for uppercase and use key to change.
-            // TODO: Check logic here. Big Keys aren't working for decrypt...
             char offset = char.IsUpper(ch) ? 'A' : 'a';
             return (char)((((ch + inKey) - offset) % 26) + offset);
         }
@@ -38,10 +37,24 @@ namespace CaesarCipher
 
         public string Decrypt(string input, int inKey)
         {
+            if (inKey < 0 || inKey > 26)
+                inKey = NormalizeKey(inKey);
+
             // Just use Decrypt with a negative key
             string output = Encrypt(input, 26 - inKey);
 
             return output.ToLower();
+        }
+
+        // Quick fix for key > 26 or key < 0 (Note: Key < 0 not working)
+        public int NormalizeKey( int origKey)
+        {
+            // TODO: Remove this line if we're not worring about negative keys.
+            int normKey = Math.Abs(origKey);
+
+            normKey %= 26;
+
+            return normKey;
         }
 
     }
