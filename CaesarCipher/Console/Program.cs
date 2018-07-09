@@ -38,7 +38,7 @@ namespace MyConsole
 
             // Testing stubbed out functions
             Console.WriteLine("Encrypt: " + caesar.Encrypt(InFile, UserKey));
-            Console.WriteLine("Decrypt: " + caesar.Decrypt(InFile, UserKey));
+            Console.WriteLine("Decrypt: " + caesar.Decrypt(OutFile, UserKey));
 
             Analyzer analyzer = new Analyzer();
             // Commented out for debugging
