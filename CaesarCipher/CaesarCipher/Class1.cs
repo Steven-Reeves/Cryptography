@@ -2,7 +2,7 @@
 
 namespace CaesarCipher
 {
-    public class Class1
+    public class Encryptor
     {
     }
 }

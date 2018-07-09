@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaesarCipher", "CaesarCipher\CaesarCipher.csproj", "{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaesarCipher", "CaesarCipher\CaesarCipher.csproj", "{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptanalysis", "Cryptanalysis\Cryptanalysis.csproj", "{3D2137CA-AA19-4E5D-81D2-E094D9E75447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptanalysis", "Cryptanalysis\Cryptanalysis.csproj", "{3D2137CA-AA19-4E5D-81D2-E094D9E75447}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{883FA042-FF07-49E8-8664-D01D9EEEBFF5}"
 EndProject
@@ -17,16 +17,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BAE2C96-0DFD-4EBD-9D97-4EE44FA53D1E}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D2137CA-AA19-4E5D-81D2-E094D9E75447}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{883FA042-FF07-49E8-8664-D01D9EEEBFF5}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
