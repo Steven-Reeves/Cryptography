@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CaesarCipher\CaesarCipher.csproj">
+      <Project>{4bae2c96-0dfd-4ebd-9d97-4ee44fa53d1e}</Project>
+      <Name>CaesarCipher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cryptanalysis\Cryptanalysis.csproj">
       <Project>{3d2137ca-aa19-4e5d-81d2-e094d9e75447}</Project>
       <Name>Cryptanalysis</Name>
