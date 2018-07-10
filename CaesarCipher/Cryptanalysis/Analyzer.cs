@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
+using CaesarCipher;
 
 namespace Cryptanalysis
 {
     public class Analyzer
     {
-        string _cipherText;
-        List<(string, int)> _decryptCandidates; // <plaintext, fitnessScore>
+        Caesar _decrypter = new Caesar();
+        List<DecryptCandidate> _decryptCandidates; // <plaintext, fitnessScore>
+        int _score = 0;
+        int _key = 0;
 
-        readonly List<(char, char)> DIGRAPHS = new List<(char, char)>
+        readonly List<(char, char)> DIGRAPHS = new List<(char, char)>   //Includes common double-letters
         {
             ('t', 'h'), ('e', 'r'), ('o', 'n'), ('a', 'n'), ('r', 'e'), ('h', 'e'), ('i', 'n'), ('e', 'd'), ('n', 'd'), ('h', 'a'), ('a', 't'), ('e', 'n'),
             ('e', 's'), ('o', 'f'), ('o', 'r'), ('n', 't'), ('e', 'a'), ('t', 'i'), ('t', 'o'), ('i', 't'), ('s', 't'), ('i', 'o'), ('l', 'e'), ('i', 's'),
@@ -26,13 +27,46 @@ namespace Cryptanalysis
 
         public Analyzer()
         {
-            _decryptCandidates = new List<(string, int)>();
+            _decryptCandidates = new List<DecryptCandidate>();
         }
 
-        public Analyzer(string cipherText)
+        public string Decrypt(string cipherText)
         {
-            _decryptCandidates = new List<(string, int)>();
-            _cipherText = cipherText;
+            _decryptCandidates.Clear();
+            _score = 0;
+            var key = 1;
+            var winner = "";
+
+            //Fill list of decrypted candidates
+            for (int i = 1; i < 26; i++)
+            {
+                var possibleDecrypt = _decrypter.Decrypt(cipherText, i);
+                _decryptCandidates.Add(new DecryptCandidate(possibleDecrypt));
+            }
+
+            //Score fitness levels of each candidate
+            foreach(var c in _decryptCandidates)
+            {
+                var score = DigraphScore(c.plainText);
+                score += TrigraphScore(c.plainText);
+                c.fitness = score;
+            }
+
+            //Find highest fitness level
+            foreach(var c in _decryptCandidates)
+            {
+                if(c.fitness > _score)
+                {
+                    winner = c.plainText;
+                    _score = c.fitness;
+                    _key = key;
+                }
+
+                key++;
+            }
+
+            //Winner winner chicken dinner!
+            return winner;
         }
 
         int DigraphScore(string plainText)
@@ -78,23 +112,13 @@ namespace Cryptanalysis
         public void TestScore()
         {
             Random _random = new Random();
-            string testEnglish = "thisisablockofnormalenglishtexttocheckonmycaesarciphercryptanalysisithasnospacesorspecialcharactersthequickbrownfoxjumpedoverthelazydogimjustgoingtotypethisonelastsentancespellingisjustalittleimportantinthistesttextfurthermoreitsopponentwillbecheatingbyusingtriplethecharactercountthisstringhastotryandmatchthefitnessscorethisrecievesthisiscurrentlyonlyanalyzingusingdigraphsnevermindiwentandaddedtrigraphsholycowthisissupergoodnowiaddedcommonthreeletterwordsandthescoringisnotevenclose";
-            string testGarbage = "";
+            //var testEnglish = "thisisablockofnormalenglishtexttocheckonmycaesarciphercryptanalysisithasnospacesorspecialcharactersthequickbrownfoxjumpedoverthelazydogimjustgoingtotypethisonelastsentancespellingisjustalittleimportantinthistesttextfurthermoreitsopponentwillbecheatingbyusingtriplethecharactercountthisstringhastotryandmatchthefitnessscorethisrecievesthisiscurrentlyonlyanalyzingusingdigraphsnevermindiwentandaddedtrigraphsholycowthisissupergoodnowiaddedcommonthreeletterwordsandthescoringisnotevenclose";
+            var testCipherText = _decrypter.Encrypt("Finally, all of you, have unity of mind, sympathy, brotherly love, a tender heart, and a humble mind. Do not repay evil for evil or reviling for reviling, but on the contrary, bless, for to this you were called, that you may obtain a blessing.", _random.Next(1, 25));
 
-            var score1 = DigraphScore(testEnglish);
-            var score2 = TrigraphScore(testEnglish);
-            Console.WriteLine(testEnglish + "\n" + "Digraph Score: " + score1 + "\n" + "Trigraph Score: " + score2 + "\n\n");
+            Console.WriteLine(Decrypt(testCipherText) + "\nScore: " + _score + "\nKey: " + _key);
+            //var score1 = DigraphScore(testEnglish);
+            //Console.WriteLine(testEnglish + "\n" + "Digraph Score: " + score1 + "\n" + "Trigraph Score: " + score2 + "\n\n");
 
-            for(int i = 0; i < testEnglish.Length * 3; i++)
-            {
-                var num = _random.Next(0, 26);
-                char letter = (char)('a' + num);
-                testGarbage += letter;
-            }
-
-            score1 = DigraphScore(testGarbage);
-            score2 = TrigraphScore(testGarbage);
-            Console.WriteLine(testGarbage + "\n" + "Digraph Score: " + score1 + "\n" + "Trigraph Score: " + score2 + "\n\n");
         }
     }
 }
