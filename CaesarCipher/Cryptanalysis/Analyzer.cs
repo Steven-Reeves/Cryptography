@@ -7,7 +7,8 @@ namespace Cryptanalysis
     public class Analyzer
     {
         Caesar _decrypter = new Caesar();
-        List<DecryptCandidate> _decryptCandidates; // <plaintext, fitnessScore>
+        public List<DecryptCandidate> _decryptCandidates; // <plaintext, fitnessScore>
+        public int _currentDecrypt = 0;
         int _score = 0;
         int _key = 0;
 
@@ -41,7 +42,7 @@ namespace Cryptanalysis
             for (int i = 1; i < 26; i++)
             {
                 var possibleDecrypt = _decrypter.Decrypt(cipherText, i);
-                _decryptCandidates.Add(new DecryptCandidate(possibleDecrypt));
+                _decryptCandidates.Add(new DecryptCandidate(possibleDecrypt, i));
             }
 
             //Score fitness levels of each candidate
@@ -65,10 +66,24 @@ namespace Cryptanalysis
                 key++;
             }
 
+            SortPlaintexts();
+
             //Winner winner chicken dinner!
             return winner;
         }
 
+        public string GetNextDecrypt()
+        {
+            if (_currentDecrypt < 25)
+            {
+                _currentDecrypt++;
+                return _decryptCandidates[_currentDecrypt].plainText;
+            }
+            else
+            {
+                return "No more decryption candidates.";
+            }
+        }
         int DigraphScore(string plainText)
         {
             var text = plainText.ToCharArray();
@@ -107,6 +122,25 @@ namespace Cryptanalysis
             }
 
             return score;
+        }
+
+        void SortPlaintexts()
+        {
+            var elements = 25;
+            int j;
+            for (int h = elements / 2; h > 0; h /= 2)
+            {
+                for (int i = h; i < elements; i++)
+                {
+                    var temp = _decryptCandidates[i];
+                    for (j = i; j >= h && temp.fitness < _decryptCandidates[j - h].fitness;
+                        j -= h)
+                    {
+                        _decryptCandidates[j] = _decryptCandidates[j - h];
+                    }
+                    _decryptCandidates[j] = temp;
+                }
+            }
         }
 
         public void TestScore()

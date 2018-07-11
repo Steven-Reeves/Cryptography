@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cryptanalysis;
+﻿using Cryptanalysis;
 
 namespace TestingGrounds
 {
@@ -11,9 +6,9 @@ namespace TestingGrounds
     {
         static void Main(string[] args)
         {
-            Analyzer analyzer = new Analyzer();
+            CryptanalysisHandler handler = new CryptanalysisHandler();
 
-            analyzer.TestScore();
+            handler.RunDecrypt();
         }
     }
 }
