@@ -44,7 +44,7 @@ namespace MyConsole
             Console.WriteLine("Please enter output text file (with .txt)");
             OutFile = Console.ReadLine();
 
-            if (UserChoice[0] == 'E')
+            if (UserChoice[0] == 'E' || UserChoice[0] == 'e')
             {
                 output = caesar.Encrypt(input, UserKey);
                 try
@@ -57,7 +57,7 @@ namespace MyConsole
                     Console.WriteLine(e.Message);
                 }
             }
-            if (UserChoice[0] == 'D')
+            if (UserChoice[0] == 'D' || UserChoice[0] == 'd')
             {
                 output = caesar.Decrypt(input, UserKey);
                 try
