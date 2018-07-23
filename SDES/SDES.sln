@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDES", "SDES\SDES.csproj", "{7973BC71-D6A0-474F-80D5-B4C2BAF7AFE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDESTests", "SDESTests\SDESTests.csproj", "{1BBEA3EA-5A45-4741-8D2C-7035DAF8183C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7973BC71-D6A0-474F-80D5-B4C2BAF7AFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7973BC71-D6A0-474F-80D5-B4C2BAF7AFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7973BC71-D6A0-474F-80D5-B4C2BAF7AFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBEA3EA-5A45-4741-8D2C-7035DAF8183C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBEA3EA-5A45-4741-8D2C-7035DAF8183C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBEA3EA-5A45-4741-8D2C-7035DAF8183C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBEA3EA-5A45-4741-8D2C-7035DAF8183C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
