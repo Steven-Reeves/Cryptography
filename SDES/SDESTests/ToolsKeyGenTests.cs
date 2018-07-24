@@ -163,5 +163,67 @@ namespace SDES.Tests
             Assert.AreEqual(false, outputArray[3]);
             Assert.AreEqual(true, outputArray[4]);
         }
+
+        [TestMethod()]
+        public void SplitTest()
+        {
+            inputArray.Set(0, true);
+            inputArray.Set(1, true);
+            inputArray.Set(2, true);
+            inputArray.Set(3, true);
+            inputArray.Set(4, true);
+            inputArray.Set(5, false);
+            inputArray.Set(6, false);
+            inputArray.Set(7, false);
+            inputArray.Set(8, false);
+            inputArray.Set(9, false);
+
+            var splitArray = testTools.SplitBitArray(inputArray);
+
+            Assert.AreEqual(true, splitArray.firstItem[0]);
+            Assert.AreEqual(true, splitArray.firstItem[1]);
+            Assert.AreEqual(true, splitArray.firstItem[2]);
+            Assert.AreEqual(true, splitArray.firstItem[3]);
+            Assert.AreEqual(true, splitArray.firstItem[4]);
+
+            Assert.AreEqual(false, splitArray.secondItem[0]);
+            Assert.AreEqual(false, splitArray.secondItem[1]);
+            Assert.AreEqual(false, splitArray.secondItem[2]);
+            Assert.AreEqual(false, splitArray.secondItem[3]);
+            Assert.AreEqual(false, splitArray.secondItem[4]);
+        }
+
+        [TestMethod()]
+        public void JoinTest()
+        {
+            var splitArrays = new BitArrayPair();
+            splitArrays.firstItem = new BitArray(5);
+            splitArrays.secondItem = new BitArray(5);
+
+            splitArrays.firstItem.Set(0, true);
+            splitArrays.firstItem.Set(1, true);
+            splitArrays.firstItem.Set(2, true);
+            splitArrays.firstItem.Set(3, true);
+            splitArrays.firstItem.Set(4, true);
+
+            splitArrays.secondItem.Set(0, false);
+            splitArrays.secondItem.Set(1, false);
+            splitArrays.secondItem.Set(2, false);
+            splitArrays.secondItem.Set(3, false);
+            splitArrays.secondItem.Set(4, false);
+
+            var joinedArray = testTools.JoinBitArrays(splitArrays);
+
+            Assert.AreEqual(true, joinedArray[0]);
+            Assert.AreEqual(true, joinedArray[1]);
+            Assert.AreEqual(true, joinedArray[2]);
+            Assert.AreEqual(true, joinedArray[3]);
+            Assert.AreEqual(true, joinedArray[4]);
+            Assert.AreEqual(false, joinedArray[5]);
+            Assert.AreEqual(false, joinedArray[6]);
+            Assert.AreEqual(false, joinedArray[7]);
+            Assert.AreEqual(false, joinedArray[8]);
+            Assert.AreEqual(false, joinedArray[9]);
+        }
     }
 }

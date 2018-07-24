@@ -58,15 +58,42 @@ namespace SDES
         }
         // Permute 8
 
-        public void SplitBitArray(BitArray input)
+        public BitArrayPair SplitBitArray(BitArray input)
         {
+            BitArrayPair splitArrays = new BitArrayPair();
+            int midway = input.Count / 2;
+            splitArrays.firstItem = new BitArray(midway);
+            splitArrays.secondItem = new BitArray(midway);
 
+            for (int i = 0; i < midway; i++)
+            {
+                splitArrays.firstItem[i] = input[i];
+            }
+
+            for(int i = midway; i < input.Count; i++)
+            {
+                splitArrays.secondItem[i - midway] = input[i];
+            }
+
+            return splitArrays;
         }
         // split
 
-        public void JoinBitArrays(BitArray input) //TODO: Should be a BitArray pair
+        public BitArray JoinBitArrays(BitArrayPair input)
         {
-            
+            BitArray output = new BitArray(input.firstItem.Count + input.secondItem.Count);
+
+            for(int i = 0; i < input.firstItem.Count; i++)
+            {
+                output[i] = input.firstItem[i];
+            }
+
+            for(int i = 0; i < input.secondItem.Count; i++)
+            {
+                output[i + input.firstItem.Count] = input.secondItem[i];
+            }
+
+            return output;
         }
         // join
 
