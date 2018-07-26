@@ -146,7 +146,7 @@ namespace SDES.Tests
         }
 
         [TestMethod()]
-        public void ShiftOneTestB()
+        public void ShiftTwoTestA()
         {
             inputArray = new BitArray(5);
             inputArray.Set(0, true);
@@ -160,6 +160,25 @@ namespace SDES.Tests
             Assert.AreEqual(false, outputArray[0]);
             Assert.AreEqual(false, outputArray[1]);
             Assert.AreEqual(true, outputArray[2]);
+            Assert.AreEqual(false, outputArray[3]);
+            Assert.AreEqual(true, outputArray[4]);
+        }
+
+        [TestMethod()]
+        public void ShiftNegativeTestA()
+        {
+            inputArray = new BitArray(5);
+            inputArray.Set(0, true);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, false);
+            inputArray.Set(4, false);
+
+            outputArray = testTools.Shift(inputArray, -1);
+
+            Assert.AreEqual(false, outputArray[0]);
+            Assert.AreEqual(true, outputArray[1]);
+            Assert.AreEqual(false, outputArray[2]);
             Assert.AreEqual(false, outputArray[3]);
             Assert.AreEqual(true, outputArray[4]);
         }
@@ -224,6 +243,76 @@ namespace SDES.Tests
             Assert.AreEqual(false, joinedArray[7]);
             Assert.AreEqual(false, joinedArray[8]);
             Assert.AreEqual(false, joinedArray[9]);
+        }
+
+        [TestMethod()]
+        public void GenerateKeysTestA()
+        {
+            inputArray.Set(0, true);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, false);
+            inputArray.Set(4, true);
+            inputArray.Set(5, false);
+            inputArray.Set(6, true);
+            inputArray.Set(7, false);
+            inputArray.Set(8, true);
+            inputArray.Set(9, false);
+
+            var keys = testTools.GenerateKeys(inputArray);
+
+            Assert.AreEqual(true, keys.firstItem[0]);
+            Assert.AreEqual(true, keys.firstItem[1]);
+            Assert.AreEqual(true, keys.firstItem[2]);
+            Assert.AreEqual(false, keys.firstItem[3]);
+            Assert.AreEqual(false, keys.firstItem[4]);
+            Assert.AreEqual(true, keys.firstItem[5]);
+            Assert.AreEqual(false, keys.firstItem[6]);
+            Assert.AreEqual(false, keys.firstItem[7]);
+
+            Assert.AreEqual(false, keys.secondItem[0]);
+            Assert.AreEqual(true, keys.secondItem[1]);
+            Assert.AreEqual(false, keys.secondItem[2]);
+            Assert.AreEqual(true, keys.secondItem[3]);
+            Assert.AreEqual(false, keys.secondItem[4]);
+            Assert.AreEqual(false, keys.secondItem[5]);
+            Assert.AreEqual(true, keys.secondItem[6]);
+            Assert.AreEqual(true, keys.secondItem[7]);
+        }
+
+        [TestMethod()]
+        public void GenerateKeysTestB()
+        {
+            inputArray.Set(0, true);
+            inputArray.Set(1, true);
+            inputArray.Set(2, true);
+            inputArray.Set(3, true);
+            inputArray.Set(4, true);
+            inputArray.Set(5, false);
+            inputArray.Set(6, false);
+            inputArray.Set(7, false);
+            inputArray.Set(8, false);
+            inputArray.Set(9, false);
+
+            var keys = testTools.GenerateKeys(inputArray);
+
+            Assert.AreEqual(true, keys.firstItem[0]);
+            Assert.AreEqual(false, keys.firstItem[1]);
+            Assert.AreEqual(false, keys.firstItem[2]);
+            Assert.AreEqual(true, keys.firstItem[3]);
+            Assert.AreEqual(false, keys.firstItem[4]);
+            Assert.AreEqual(true, keys.firstItem[5]);
+            Assert.AreEqual(false, keys.firstItem[6]);
+            Assert.AreEqual(false, keys.firstItem[7]);
+
+            Assert.AreEqual(false, keys.secondItem[0]);
+            Assert.AreEqual(true, keys.secondItem[1]);
+            Assert.AreEqual(false, keys.secondItem[2]);
+            Assert.AreEqual(true, keys.secondItem[3]);
+            Assert.AreEqual(false, keys.secondItem[4]);
+            Assert.AreEqual(true, keys.secondItem[5]);
+            Assert.AreEqual(false, keys.secondItem[6]);
+            Assert.AreEqual(true, keys.secondItem[7]);
         }
     }
 }

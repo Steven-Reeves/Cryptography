@@ -1,20 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections;
 
 namespace SDES
 {
     public class Tools
     {
-        public void GenerateKeys(BitArray input)
+        public BitArrayPair GenerateKeys(BitArray inputKey) //TODO
         {
-            var output = new BitArray(10); //TODO: Should be a BitArray pair
-            
+            Tools toolkit = new Tools();
+            var keyPair = new BitArrayPair();
+            keyPair.firstItem = new BitArray(8);
+            keyPair.secondItem = new BitArray(8);
+
+            var workingKey = toolkit.PermuteTen(inputKey);
+
+            var splitKey = toolkit.SplitBitArray(workingKey);
+            splitKey.firstItem = toolkit.Shift(splitKey.firstItem, -1);
+            splitKey.secondItem = toolkit.Shift(splitKey.secondItem, -1);
+
+            workingKey = toolkit.JoinBitArrays(splitKey);
+
+            workingKey = toolkit.PermuteEight(workingKey); //Key 1
+            keyPair.firstItem = workingKey;
+
+            splitKey.firstItem = toolkit.Shift(splitKey.firstItem, -2);
+            splitKey.secondItem = toolkit.Shift(splitKey.secondItem, -2);
+
+            workingKey = toolkit.JoinBitArrays(splitKey);
+
+            workingKey = toolkit.PermuteEight(workingKey); //Key 2
+            keyPair.secondItem = workingKey;
+
+            return keyPair;
         }
-        // generateKeys (bitArray input)
 
         public BitArray PermuteTen(BitArray input)
         {
@@ -28,21 +45,24 @@ namespace SDES
 
             return output;
         }
-        // Permute10 <--
 
-        public BitArray Shift(BitArray input, int shiftCount)
+        public BitArray Shift(BitArray input, int shiftCount) //positive shifts right, negative shifts left
         {
             int count = input.Count;
             BitArray output = new BitArray(count);
 
-            for(int i = 0; i < count; i++)
+            while (shiftCount < 0)
+            {
+                shiftCount += count;
+            }
+
+            for (int i = 0; i < count; i++)
             {
                 output[(i + shiftCount) % count] = input[i];
             }
 
             return output;
         }
-        // Shift (bitarray input, int shiftCount)
 
         public BitArray PermuteEight(BitArray input)
         {
@@ -56,7 +76,6 @@ namespace SDES
 
             return output;
         }
-        // Permute 8
 
         public BitArrayPair SplitBitArray(BitArray input)
         {
@@ -77,7 +96,6 @@ namespace SDES
 
             return splitArrays;
         }
-        // split
 
         public BitArray JoinBitArrays(BitArrayPair input)
         {
@@ -95,8 +113,6 @@ namespace SDES
 
             return output;
         }
-        // join
-
 
     }
 }
