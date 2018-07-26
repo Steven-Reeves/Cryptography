@@ -6,28 +6,27 @@ namespace SDES
     {
         public BitArrayPair GenerateKeys(BitArray inputKey) //TODO
         {
-            Tools toolkit = new Tools();
             var keyPair = new BitArrayPair();
             keyPair.firstItem = new BitArray(8);
             keyPair.secondItem = new BitArray(8);
 
-            var workingKey = toolkit.PermuteTen(inputKey);
+            var workingKey = PermuteTen(inputKey);
 
-            var splitKey = toolkit.SplitBitArray(workingKey);
-            splitKey.firstItem = toolkit.Shift(splitKey.firstItem, -1);
-            splitKey.secondItem = toolkit.Shift(splitKey.secondItem, -1);
+            var splitKey = SplitBitArray(workingKey);
+            splitKey.firstItem = Shift(splitKey.firstItem, -1);
+            splitKey.secondItem = Shift(splitKey.secondItem, -1);
 
-            workingKey = toolkit.JoinBitArrays(splitKey);
+            workingKey = JoinBitArrays(splitKey);
 
-            workingKey = toolkit.PermuteEight(workingKey); //Key 1
+            workingKey = PermuteEight(workingKey); //Key 1
             keyPair.firstItem = workingKey;
 
-            splitKey.firstItem = toolkit.Shift(splitKey.firstItem, -2);
-            splitKey.secondItem = toolkit.Shift(splitKey.secondItem, -2);
+            splitKey.firstItem = Shift(splitKey.firstItem, -2);
+            splitKey.secondItem = Shift(splitKey.secondItem, -2);
 
-            workingKey = toolkit.JoinBitArrays(splitKey);
+            workingKey = JoinBitArrays(splitKey);
 
-            workingKey = toolkit.PermuteEight(workingKey); //Key 2
+            workingKey = PermuteEight(workingKey); //Key 2
             keyPair.secondItem = workingKey;
 
             return keyPair;
