@@ -4,7 +4,7 @@ namespace SDES
 {
     public class Tools
     {
-        public BitArrayPair GenerateKeys(BitArray inputKey) //TODO
+        public BitArrayPair GenerateKeys(BitArray inputKey)
         {
             var keyPair = new BitArrayPair();
             keyPair.firstItem = new BitArray(8);
@@ -112,6 +112,5 @@ namespace SDES
 
             return output;
         }
-
     }
 }
