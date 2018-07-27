@@ -15,6 +15,8 @@ namespace SDES
             BitArray key_1 = new BitArray(8);
             BitArray key_2 = new BitArray(8);
             BitArray userText = new BitArray(8);
+            Tools tools = new Tools();
+            BitArrayPair keys = new BitArrayPair();
             // BitArray cihoertext = new BitArray(8);
             string UserChoice = "";
             bool exit = false;
@@ -63,8 +65,7 @@ namespace SDES
                     if (userText.Length == 8)
                     {
                         validInput = true;
-                        // TODO: put BitArrayToString call here 
-                        Console.WriteLine("Your eight bit text: " + "use fancy BitArrayToString tool here");
+                        Console.WriteLine("Your eight bit text: " + tools.BitArrayToString(userText));
                     }
                     else
                     {
@@ -87,8 +88,7 @@ namespace SDES
                     if (userKey.Length == 10)
                     {
                         validInput = true;
-                        // TODO: put BitArrayToString call here 
-                        Console.WriteLine("Your ten bit key: " + "use fancy BitArrayToString tool here");
+                        Console.WriteLine("Your ten bit key: " + tools.BitArrayToString(userKey));
                     }
                     else
                     {
@@ -106,9 +106,9 @@ namespace SDES
                 {
                     // Generate Keys here
                     Console.WriteLine("Your 8 bit keys are listed below...");
-                    // TODO: put BitArrayToString call here 
-                    Console.WriteLine("Key 1: " + "use fancy BitArrayToString tool here");
-                    Console.WriteLine("Key 2: " + "use fancy BitArrayToString tool here");
+                    keys = tools.GenerateKeys(userKey);
+                    Console.WriteLine("Key 1: " + tools.BitArrayToString(keys.firstItem));
+                    Console.WriteLine("Key 2: " + tools.BitArrayToString(keys.secondItem));
                     // TODO: Encrypt or decrypt and output bit array
                 }
 
