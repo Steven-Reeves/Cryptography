@@ -130,9 +130,39 @@ namespace SDES
         // Todo: BitArrayToString ----> First come first serve
 
         // Encrypt              ------> Steven
-        // - Follow Algorithm 
+        /*
+        public BitArray Encrypt (BitArray plaintext, BitArray key1, BitArray key2)
+        {
+            // - Follow Algorithm 
+            BitArray IP = PermuteEight(plaintext);          //Permute eight might be different for encryption?
+            BitArrayPair Split_IP = SplitBitArray(IP);
+            // FunctionK()                                   // Do we pass the whole pair?
+            // Swap?
+            // FunctionK()
+
+            return ciphertext;
+        }
+        */
 
         // Sboxes             ------> Steven
+        public BitArray SBoxes(BitArray input, char[,] matrix)
+        {
+            //  first, fourth  and second and third pairs...
+            bool[] firstHalfBool = new bool[] { input[0], input[4] };
+            BitArray firstHalf = new BitArray(firstHalfBool);
+            bool[] secondHalfBool = new bool[] { input[2], input[3] };
+            BitArray secondHalf = new BitArray(secondHalfBool);
+
+            int[] rowColumn = new int[2];
+            firstHalf.CopyTo(rowColumn, 0);
+            secondHalf.CopyTo(rowColumn, 1);
+
+            int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
+
+            return new BitArray(new[] { result });
+        }
+
+
 
         // function K          ------> Randall 
 
