@@ -109,6 +109,7 @@ namespace SDES
                     // TODO: put BitArrayToString call here 
                     Console.WriteLine("Key 1: " + "use fancy BitArrayToString tool here");
                     Console.WriteLine("Key 2: " + "use fancy BitArrayToString tool here");
+                    // TODO: Encrypt or decrypt and output bit array
                 }
 
                 // Ask user if they want to quit
