@@ -314,5 +314,20 @@ namespace SDES.Tests
             Assert.AreEqual(false, keys.secondItem[6]);
             Assert.AreEqual(true, keys.secondItem[7]);
         }
+
+        [TestMethod()]
+        public void BitArrayToStringTest()
+        {
+            inputArray = new BitArray(5);
+            inputArray.Set(0, true);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, false);
+            inputArray.Set(4, false);
+
+            outputArray = testTools.Shift(inputArray, -1);
+
+            Assert.AreEqual("10100", testTools.BitArrayToString(inputArray));
+        }
     }
 }

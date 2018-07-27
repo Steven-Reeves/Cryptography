@@ -113,6 +113,20 @@ namespace SDES
             return output;
         }
 
+        public string BitArrayToString(BitArray input)
+        {
+            string output = "";
+            for(int i = 0; i < input.Count; i++)
+            {
+                if (input[i])
+                    output += "1";
+                else
+                    output += "0";
+            }
+
+            return output;
+        }
+
         // Todo: BitArrayToString ----> First come first serve
 
         // Encrypt              ------> Steven
