@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 
 namespace SDES
 {
@@ -184,20 +185,44 @@ namespace SDES
             return output;
         }
 
+        public int BitArrayToInt(BitArray input)
+        {
+            int value = 0;
+            int count = 0;
+            for (int i = input.Count - 1; i >= 0; i--)
+            {
+                if (input[i])
+                    value += Convert.ToInt16(Math.Pow(2, count));
+                count++;
+            }
+
+            return value;
+        }
+
+
         // Sboxes             ------> Steven
         public BitArray SBoxes(BitArray input, char[,] matrix)
         {
             //  first, fourth  and second and third pairs...
-            bool[] firstHalfBool = new bool[] { input[0], input[4] };
+            bool[] firstHalfBool = new bool[] { input[0], input[3] };
             BitArray firstHalf = new BitArray(firstHalfBool);
-            bool[] secondHalfBool = new bool[] { input[2], input[3] };
+            bool[] secondHalfBool = new bool[] { input[1], input[2] };
             BitArray secondHalf = new BitArray(secondHalfBool);
 
-            int[] rowColumn = new int[2];
-            firstHalf.CopyTo(rowColumn, 0);
-            secondHalf.CopyTo(rowColumn, 1);
+            int rowInt = BitArrayToInt(firstHalf);
+            int columnInt = BitArrayToInt(secondHalf);
+            //int[] rowColumn = new int[2];
+            //string row = BitArrayToString(firstHalf);
+            //int.TryParse(row, out rowInt);
 
-            int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
+            //string column = BitArrayToString(secondHalf);
+            //int.TryParse(column, out columnInt);
+            //firstHalf.CopyTo(rowColumn, 0);
+            //secondHalf.CopyTo(rowColumn, 1);
+
+
+            //int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
+            int result = (int)char.GetNumericValue(matrix[rowInt, columnInt]);
 
             return new BitArray(new[] { result });
         }

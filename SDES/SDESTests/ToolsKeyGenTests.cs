@@ -392,5 +392,43 @@ namespace SDES.Tests
             Assert.AreEqual(false, outputArray[3]);
 
         }
+
+        [TestMethod()]
+        public void SBox0Test()
+        {
+            inputArray.Set(0, true);
+            inputArray.Set(1, true);
+            inputArray.Set(2, false);
+            inputArray.Set(3, true);
+
+            outputArray = testTools.SBoxes(inputArray, new char[,] {    {'1', '0', '3', '2'},
+                                                                        {'3', '2', '1', '0'},
+                                                                        {'0', '2', '1', '3'},
+                                                                        {'3', '1', '3', '2'}});
+
+
+            Assert.AreEqual(true, outputArray[0]);
+            Assert.AreEqual(true, outputArray[1]);
+
+        }
+
+        [TestMethod()]
+        public void SBox1Test()
+        {
+            inputArray.Set(0, false);
+            inputArray.Set(1, true);
+            inputArray.Set(2, false);
+            inputArray.Set(3, true);
+
+            outputArray = testTools.SBoxes(inputArray, new char[,] {   {'0', '1', '2', '3'},
+                                                                       {'2', '0', '1', '3'},
+                                                                       {'3', '0', '1', '0'},
+                                                                       {'2', '1', '0', '3'}});
+
+
+            Assert.AreEqual(false, outputArray[0]);
+            Assert.AreEqual(true, outputArray[1]);
+
+        }
     }
 }
