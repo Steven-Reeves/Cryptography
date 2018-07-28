@@ -127,6 +127,7 @@ namespace SDES
             return output;
         }
 
+
         // Todo: BitArrayToString ----> First come first serve
 
         // Encrypt              ------> Steven
@@ -169,7 +170,19 @@ namespace SDES
 
             return output;
         }
-        
+
+        public BitArray EncryptPermuteFour(BitArray input)
+        {
+            int[] p4EncryptScramble = { 3, 0, 2, 1 };
+            BitArray output = new BitArray(4);
+
+            for (int i = 0; i < 4; i++)
+            {
+                output[p4EncryptScramble[i]] = input[i];
+            }
+
+            return output;
+        }
 
         // Sboxes             ------> Steven
         public BitArray SBoxes(BitArray input, char[,] matrix)

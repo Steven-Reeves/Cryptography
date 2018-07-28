@@ -375,5 +375,22 @@ namespace SDES.Tests
             Assert.AreEqual(true, outputArray[6]);
             Assert.AreEqual(false, outputArray[7]);
         }
+
+        [TestMethod()]
+        public void EncryptPermuteFourTest()
+        {
+            inputArray.Set(0, false);
+            inputArray.Set(1, true);
+            inputArray.Set(2, false);
+            inputArray.Set(3, true);
+
+            outputArray = testTools.EncryptPermuteFour(inputArray);
+
+            Assert.AreEqual(true, outputArray[0]);
+            Assert.AreEqual(true, outputArray[1]);
+            Assert.AreEqual(false, outputArray[2]);
+            Assert.AreEqual(false, outputArray[3]);
+
+        }
     }
 }
