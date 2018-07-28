@@ -217,7 +217,7 @@ namespace SDES
             return output;
         }
 
-        public BitArray BitArrayBitArrayFromInt(int input)
+        public BitArray BitArrayFromInt(int input)
         {
             string intString = Convert.ToString(input, 2);
             if(intString.Length < 2)
@@ -229,7 +229,6 @@ namespace SDES
 
             return output;
         }
-
 
         // Sboxes             ------> Steven
         public BitArray SBoxes(BitArray input, char[,] matrix)
@@ -255,7 +254,7 @@ namespace SDES
             //int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
             int result = (int)char.GetNumericValue(matrix[rowInt, columnInt]);
 
-            return BitArrayBitArrayFromInt(result);
+            return BitArrayFromInt(result);
         }
 
 
