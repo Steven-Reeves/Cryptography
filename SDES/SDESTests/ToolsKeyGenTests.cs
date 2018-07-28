@@ -336,13 +336,11 @@ namespace SDES.Tests
             inputArray.Set(0, true);
             inputArray.Set(1, false);
             inputArray.Set(2, true);
-            inputArray.Set(3, false);
-            inputArray.Set(4, true);
+            inputArray.Set(3, true);
+            inputArray.Set(4, false);
             inputArray.Set(5, false);
-            inputArray.Set(6, true);
-            inputArray.Set(7, false);
-            inputArray.Set(8, true);
-            inputArray.Set(9, false);
+            inputArray.Set(6, false);
+            inputArray.Set(7, true);
 
             outputArray = testTools.PermuteEightEncrypt(inputArray);
 
@@ -350,10 +348,10 @@ namespace SDES.Tests
             Assert.AreEqual(false, outputArray[1]);
             Assert.AreEqual(true, outputArray[2]);
             Assert.AreEqual(true, outputArray[3]);
-            Assert.AreEqual(false, outputArray[4]);
-            Assert.AreEqual(false, outputArray[5]);
-            Assert.AreEqual(true, outputArray[6]);
-            Assert.AreEqual(true, outputArray[7]);
+            Assert.AreEqual(true, outputArray[4]);
+            Assert.AreEqual(true, outputArray[5]);
+            Assert.AreEqual(false, outputArray[6]);
+            Assert.AreEqual(false, outputArray[7]);
         }
 
         [TestMethod()]
@@ -428,7 +426,44 @@ namespace SDES.Tests
 
             Assert.AreEqual(false, outputArray[0]);
             Assert.AreEqual(false, outputArray[1]);
+        }
 
+        [TestMethod()]
+        public void EncryptTest()
+        {
+            BitArray key = new BitArray(10);
+            key[0] = true;
+            key[1] = true;
+            key[2] = true;
+            key[3] = true;
+            key[4] = true;
+            key[5] = false;
+            key[6] = false;
+            key[7] = false;
+            key[8] = false;
+            key[9] = false;
+
+            inputArray = new BitArray(8);
+
+            inputArray.Set(0, true);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, true);
+            inputArray.Set(4, false);
+            inputArray.Set(5, false);
+            inputArray.Set(6, false);
+            inputArray.Set(7, true);
+
+            outputArray = testTools.Encrypt(inputArray, key);
+
+            Assert.AreEqual(true, outputArray[0]);
+            Assert.AreEqual(false, outputArray[1]);
+            Assert.AreEqual(true, outputArray[2]);
+            Assert.AreEqual(false, outputArray[3]);
+            Assert.AreEqual(true, outputArray[4]);
+            Assert.AreEqual(true, outputArray[5]);
+            Assert.AreEqual(false, outputArray[6]);
+            Assert.AreEqual(false, outputArray[7]);
         }
     }
 }

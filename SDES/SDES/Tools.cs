@@ -128,8 +128,53 @@ namespace SDES
             return output;
         }
 
+        public BitArray Encrypt(BitArray plainText, BitArray key)
+        {
+            BitArrayPair keyPair = GenerateKeys(key);
 
-        // Todo: BitArrayToString ----> First come first serve
+            BitArrayPair splitBitArray = SplitBitArray(PermuteEightEncrypt(plainText));             //do not overwrite this
+            BitArray xorTemp = EncryptExpand(splitBitArray.secondItem).Xor(keyPair.firstItem);
+
+            BitArrayPair splitXoredArray = SplitBitArray(xorTemp);
+            BitArrayPair sBoxArrays = new BitArrayPair();
+
+            sBoxArrays.firstItem = SBoxes(splitXoredArray.firstItem, new char[,] {      {'1', '0', '3', '2'},
+                                                                                        {'3', '2', '1', '0'},
+                                                                                        {'0', '2', '1', '3'},
+                                                                                        {'3', '1', '3', '2'}});
+
+            sBoxArrays.secondItem = SBoxes(splitXoredArray.secondItem, new char[,] {    {'0', '1', '2', '3'},
+                                                                                        {'2', '0', '1', '3'},
+                                                                                        {'3', '0', '1', '0'},
+                                                                                        {'2', '1', '0', '3'}});
+
+            BitArray temp = new BitArray(splitBitArray.firstItem);
+
+
+            BitArray firstHalfOfEncrypt = temp.Xor(EncryptPermuteFour(JoinBitArrays(sBoxArrays)));
+
+            xorTemp = EncryptExpand(firstHalfOfEncrypt).Xor(keyPair.secondItem);
+            splitXoredArray = SplitBitArray(xorTemp);
+
+            sBoxArrays.firstItem = SBoxes(splitXoredArray.firstItem, new char[,] {      {'1', '0', '3', '2'},
+                                                                                        {'3', '2', '1', '0'},
+                                                                                        {'0', '2', '1', '3'},
+                                                                                        {'3', '1', '3', '2'}});
+
+            sBoxArrays.secondItem = SBoxes(splitXoredArray.secondItem, new char[,] {    {'0', '1', '2', '3'},
+                                                                                        {'2', '0', '1', '3'},
+                                                                                        {'3', '0', '1', '0'},
+                                                                                        {'2', '1', '0', '3'}});
+
+            BitArray secondHalfOfEncrypt = splitBitArray.secondItem.Xor(EncryptPermuteFour(JoinBitArrays(sBoxArrays)));
+            BitArrayPair bothHalves = new BitArrayPair();
+            bothHalves.firstItem = secondHalfOfEncrypt;
+            bothHalves.secondItem = firstHalfOfEncrypt;
+
+            BitArray encryptedOutput = PermuteEightEncryptInverted(JoinBitArrays(bothHalves));
+
+            return encryptedOutput;
+        }
 
         // Encrypt              ------> Steven
         /*
@@ -151,9 +196,22 @@ namespace SDES
             int[] p8Scramble = { 3, 0, 2, 4, 6, 1, 7, 5 };
             BitArray output = new BitArray(8);
 
-            for (int i = 2; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
-                output[p8Scramble[i - 2]] = input[i];
+                output[p8Scramble[i]] = input[i];
+            }
+
+            return output;
+        }
+
+        public BitArray PermuteEightEncryptInverted(BitArray input)
+        {
+            int[] p8Scramble = { 1, 5, 2, 0, 3, 7, 4, 6};
+            BitArray output = new BitArray(8);
+
+            for (int i = 0; i < 8; i++)
+            {
+                output[p8Scramble[i]] = input[i];
             }
 
             return output;
