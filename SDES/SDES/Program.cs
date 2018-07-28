@@ -114,8 +114,10 @@ namespace SDES
                         Console.WriteLine("Your encrypted ciphertext: " + tools.BitArrayToString(outText));
                     }
                     else
-                        Console.WriteLine("Your encrypted ciphertext: " + "DECRYPT HERE");
-
+                    {
+                        outText = tools.Decrypt(userText, userKey);
+                        Console.WriteLine("Your Decrypted plaintext: " + tools.BitArrayToString(outText));
+                    }
                     Console.WriteLine("Your 8 bit keys are listed below...");
                     Console.WriteLine("Key 1: " + tools.BitArrayToString(keys.firstItem));
                     Console.WriteLine("Key 2: " + tools.BitArrayToString(keys.secondItem));

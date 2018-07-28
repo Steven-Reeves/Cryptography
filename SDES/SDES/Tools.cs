@@ -176,20 +176,56 @@ namespace SDES
             return encryptedOutput;
         }
 
-        // Encrypt              ------> Steven
-        /*
-        public BitArray Encrypt (BitArray plaintext, BitArray key1, BitArray key2)
+        // Same as Encrypt, just switch keys
+        public BitArray Decrypt(BitArray plainText, BitArray key)
         {
-            // - Follow Algorithm 
-            BitArray IP = PermuteEight(plaintext);          //Permute eight might be different for encryption?
-            BitArrayPair Split_IP = SplitBitArray(IP);
-            // FunctionK()                                   // Do we pass the whole pair?
-            // Swap?
-            // FunctionK()
+            BitArrayPair keyPair = GenerateKeys(key);
 
-            return ciphertext;
+            BitArrayPair splitBitArray = SplitBitArray(PermuteEightEncrypt(plainText));             //do not overwrite this
+            BitArray xorTemp = EncryptExpand(splitBitArray.secondItem).Xor(keyPair.secondItem);
+
+            BitArrayPair splitXoredArray = SplitBitArray(xorTemp);
+            BitArrayPair sBoxArrays = new BitArrayPair();
+
+            sBoxArrays.firstItem = SBoxes(splitXoredArray.firstItem, new char[,] {      {'1', '0', '3', '2'},
+                                                                                        {'3', '2', '1', '0'},
+                                                                                        {'0', '2', '1', '3'},
+                                                                                        {'3', '1', '3', '2'}});
+
+            sBoxArrays.secondItem = SBoxes(splitXoredArray.secondItem, new char[,] {    {'0', '1', '2', '3'},
+                                                                                        {'2', '0', '1', '3'},
+                                                                                        {'3', '0', '1', '0'},
+                                                                                        {'2', '1', '0', '3'}});
+
+            BitArray temp = new BitArray(splitBitArray.firstItem);
+
+
+            BitArray firstHalfOfDecrypt = temp.Xor(EncryptPermuteFour(JoinBitArrays(sBoxArrays)));
+
+            xorTemp = EncryptExpand(firstHalfOfDecrypt).Xor(keyPair.firstItem);
+            splitXoredArray = SplitBitArray(xorTemp);
+
+            sBoxArrays.firstItem = SBoxes(splitXoredArray.firstItem, new char[,] {      {'1', '0', '3', '2'},
+                                                                                        {'3', '2', '1', '0'},
+                                                                                        {'0', '2', '1', '3'},
+                                                                                        {'3', '1', '3', '2'}});
+
+            sBoxArrays.secondItem = SBoxes(splitXoredArray.secondItem, new char[,] {    {'0', '1', '2', '3'},
+                                                                                        {'2', '0', '1', '3'},
+                                                                                        {'3', '0', '1', '0'},
+                                                                                        {'2', '1', '0', '3'}});
+
+            BitArray secondHalfOfDecrypt = splitBitArray.secondItem.Xor(EncryptPermuteFour(JoinBitArrays(sBoxArrays)));
+            BitArrayPair bothHalves = new BitArrayPair();
+            bothHalves.firstItem = secondHalfOfDecrypt;
+            bothHalves.secondItem = firstHalfOfDecrypt;
+
+            BitArray DecryptedOutput = PermuteEightEncryptInverted(JoinBitArrays(bothHalves));
+
+            return DecryptedOutput;
         }
-        */
+
+
 
         public BitArray PermuteEightEncrypt(BitArray input)
         {
@@ -288,7 +324,7 @@ namespace SDES
             return output;
         }
 
-        // Sboxes             ------> Steven
+
         public BitArray SBoxes(BitArray input, char[,] matrix)
         {
             //  first, fourth  and second and third pairs...
@@ -299,29 +335,11 @@ namespace SDES
 
             int rowInt = BitArrayToInt(firstHalf);
             int columnInt = BitArrayToInt(secondHalf);
-            //int[] rowColumn = new int[2];
-            //string row = BitArrayToString(firstHalf);
-            //int.TryParse(row, out rowInt);
 
-            //string column = BitArrayToString(secondHalf);
-            //int.TryParse(column, out columnInt);
-            //firstHalf.CopyTo(rowColumn, 0);
-            //secondHalf.CopyTo(rowColumn, 1);
-
-
-            //int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
             int result = (int)char.GetNumericValue(matrix[rowInt, columnInt]);
 
             return BitArrayFromInt(result);
         }
-
-
-
-        // function K          ------> Randall 
-
-        // Decrypt              ------> Randall
-        // - Follow Algorithm 
-
 
     }
 }
