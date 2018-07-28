@@ -144,6 +144,21 @@ namespace SDES
         }
         */
 
+        public BitArray PermuteEightEncrypt(BitArray input)
+        {
+            int[] p8Scramble = { 3, 0, 2, 4, 6, 1, 7, 5 };
+            BitArray output = new BitArray(8);
+
+            for (int i = 2; i < 10; i++)
+            {
+                output[p8Scramble[i - 2]] = input[i];
+            }
+
+            return output;
+        }
+
+        
+
         // Sboxes             ------> Steven
         public BitArray SBoxes(BitArray input, char[,] matrix)
         {

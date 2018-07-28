@@ -329,5 +329,31 @@ namespace SDES.Tests
 
             Assert.AreEqual("10100", testTools.BitArrayToString(inputArray));
         }
+
+        [TestMethod()]
+        public void PermuteEightEncryptTest()
+        {
+            inputArray.Set(0, true);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, false);
+            inputArray.Set(4, true);
+            inputArray.Set(5, false);
+            inputArray.Set(6, true);
+            inputArray.Set(7, false);
+            inputArray.Set(8, true);
+            inputArray.Set(9, false);
+
+            outputArray = testTools.PermuteEightEncrypt(inputArray);
+
+            Assert.AreEqual(false, outputArray[0]);
+            Assert.AreEqual(false, outputArray[1]);
+            Assert.AreEqual(true, outputArray[2]);
+            Assert.AreEqual(true, outputArray[3]);
+            Assert.AreEqual(false, outputArray[4]);
+            Assert.AreEqual(false, outputArray[5]);
+            Assert.AreEqual(true, outputArray[6]);
+            Assert.AreEqual(true, outputArray[7]);
+        }
     }
 }
