@@ -199,6 +199,37 @@ namespace SDES
             return value;
         }
 
+        public BitArray BitArrayFromString(string input)
+        {
+            int i = 0;
+            BitArray output = new BitArray(input.Length);
+
+            foreach(char c in input)
+            {
+                if (c == '1')
+                    output[i] = true;
+                else
+                    output[i] = false;
+
+                i++;
+            }
+
+            return output;
+        }
+
+        public BitArray BitArrayBitArrayFromInt(int input)
+        {
+            string intString = Convert.ToString(input, 2);
+            if(intString.Length < 2)
+            {
+                intString = "0" + intString;
+            }
+
+            BitArray output = BitArrayFromString(intString);
+
+            return output;
+        }
+
 
         // Sboxes             ------> Steven
         public BitArray SBoxes(BitArray input, char[,] matrix)
@@ -224,7 +255,7 @@ namespace SDES
             //int result = (int)char.GetNumericValue(matrix[rowColumn[0], rowColumn[1]]);
             int result = (int)char.GetNumericValue(matrix[rowInt, columnInt]);
 
-            return new BitArray(new[] { result });
+            return BitArrayBitArrayFromInt(result);
         }
 
 

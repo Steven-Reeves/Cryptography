@@ -398,7 +398,7 @@ namespace SDES.Tests
         {
             inputArray.Set(0, true);
             inputArray.Set(1, true);
-            inputArray.Set(2, false);
+            inputArray.Set(2, true);
             inputArray.Set(3, true);
 
             outputArray = testTools.SBoxes(inputArray, new char[,] {    {'1', '0', '3', '2'},
@@ -408,14 +408,14 @@ namespace SDES.Tests
 
 
             Assert.AreEqual(true, outputArray[0]);
-            Assert.AreEqual(true, outputArray[1]);
+            Assert.AreEqual(false, outputArray[1]);
 
         }
 
         [TestMethod()]
         public void SBox1Test()
         {
-            inputArray.Set(0, false);
+            inputArray.Set(0, true);
             inputArray.Set(1, true);
             inputArray.Set(2, false);
             inputArray.Set(3, true);
@@ -427,7 +427,7 @@ namespace SDES.Tests
 
 
             Assert.AreEqual(false, outputArray[0]);
-            Assert.AreEqual(true, outputArray[1]);
+            Assert.AreEqual(false, outputArray[1]);
 
         }
     }
