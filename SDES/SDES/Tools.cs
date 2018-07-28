@@ -157,6 +157,18 @@ namespace SDES
             return output;
         }
 
+        public BitArray EncryptExpand(BitArray input)
+        {
+            int[] p8EncryptScramble = { 3, 0, 1, 2, 1, 2, 3, 0 };
+            BitArray output = new BitArray(8);
+
+            for(int i = 0; i < 8; i++)
+            {
+                output[i] = input[p8EncryptScramble[i]];
+            }
+
+            return output;
+        }
         
 
         // Sboxes             ------> Steven

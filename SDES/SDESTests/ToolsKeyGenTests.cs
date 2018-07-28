@@ -355,5 +355,25 @@ namespace SDES.Tests
             Assert.AreEqual(true, outputArray[6]);
             Assert.AreEqual(true, outputArray[7]);
         }
+
+        [TestMethod()]
+        public void EncryptExpandTest()
+        {
+            inputArray.Set(0, false);
+            inputArray.Set(1, false);
+            inputArray.Set(2, true);
+            inputArray.Set(3, true);
+
+            outputArray = testTools.EncryptExpand(inputArray);
+
+            Assert.AreEqual(true, outputArray[0]);
+            Assert.AreEqual(false, outputArray[1]);
+            Assert.AreEqual(false, outputArray[2]);
+            Assert.AreEqual(true, outputArray[3]);
+            Assert.AreEqual(false, outputArray[4]);
+            Assert.AreEqual(true, outputArray[5]);
+            Assert.AreEqual(true, outputArray[6]);
+            Assert.AreEqual(false, outputArray[7]);
+        }
     }
 }
