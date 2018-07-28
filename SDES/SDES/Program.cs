@@ -17,7 +17,7 @@ namespace SDES
             BitArray userText = new BitArray(8);
             Tools tools = new Tools();
             BitArrayPair keys = new BitArrayPair();
-            // BitArray cihoertext = new BitArray(8);
+            BitArray outText = new BitArray(8);
             string UserChoice = "";
             bool exit = false;
             bool validInput = false;
@@ -105,11 +105,20 @@ namespace SDES
                 if (!exit)
                 {
                     // Generate Keys here
-                    Console.WriteLine("Your 8 bit keys are listed below...");
+
                     keys = tools.GenerateKeys(userKey);
+
+                    if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
+                    {
+                        outText = tools.Encrypt(userText, userKey);
+                        Console.WriteLine("Your encrypted ciphertext: " + tools.BitArrayToString(outText));
+                    }
+                    else
+                        Console.WriteLine("Your encrypted ciphertext: " + "DECRYPT HERE");
+
+                    Console.WriteLine("Your 8 bit keys are listed below...");
                     Console.WriteLine("Key 1: " + tools.BitArrayToString(keys.firstItem));
                     Console.WriteLine("Key 2: " + tools.BitArrayToString(keys.secondItem));
-                    // TODO: Encrypt or decrypt and output bit array
                 }
 
                 // Ask user if they want to quit
