@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSA", "RSA\RSA.csproj", "{2D55E5F0-C833-43CC-B9B3-52E7E1904B38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestRSA", "UnitTestRSA\UnitTestRSA.csproj", "{83696D16-1313-4C15-8CE5-021F21359197}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D55E5F0-C833-43CC-B9B3-52E7E1904B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D55E5F0-C833-43CC-B9B3-52E7E1904B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D55E5F0-C833-43CC-B9B3-52E7E1904B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D55E5F0-C833-43CC-B9B3-52E7E1904B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83696D16-1313-4C15-8CE5-021F21359197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83696D16-1313-4C15-8CE5-021F21359197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83696D16-1313-4C15-8CE5-021F21359197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83696D16-1313-4C15-8CE5-021F21359197}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {557FF1D7-5DE6-4BFB-8133-858F42D8A159}
+	EndGlobalSection
+EndGlobal
