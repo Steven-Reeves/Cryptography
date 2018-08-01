@@ -4,19 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Numerics;
+using System.Text.RegularExpressions;
+
 
 namespace RSA
 {
-    // TODO: Makes this work for Homework 3 <--- Steven
     class Program
     {
         static void Main(string[] args)
         {
-            //Tools tools = new Tools();
+            RSAKit kit = new RSAKit();
             string UserChoice = "";
             bool exit = false;
             bool validInput = false;
-            string validCharacters = "eEdDqQ";
+            string validCharacters = "eEdDqGgQq";
+            BigInteger input;
+            BigInteger output;
 
             // Loop to allow user to replay
             while (!exit)
@@ -28,8 +32,8 @@ namespace RSA
                 validInput = false;
                 while (!validInput)
                 {
-                    Console.WriteLine("Would you like to encrypt or decrypt your number?");
-                    Console.WriteLine("E/D.......");
+                    Console.WriteLine("Would you like to encrypt, decrypt, or generate keys?");
+                    Console.WriteLine("E/D/G.......");
                     UserChoice = Console.ReadLine();
                     if (validCharacters.Contains(UserChoice[0]))
                     {
@@ -42,25 +46,41 @@ namespace RSA
                     }
                     else
                     {
-                        Console.WriteLine("Please enter correct input...");
+                        Console.WriteLine("Please enter correct input...\n");
                     }
+                }
+
+                if (!exit && (UserChoice[0] == 'g' || UserChoice[0] == 'G'))
+                {
+                    Console.WriteLine("Generated Key set 1:");
+                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");                    
+                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
+                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");
+                    Console.WriteLine("Generated Key set 2:");
+                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");
+                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
+                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");
+                    Console.WriteLine("Generated Key set 3:");
+                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");
+                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
+                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");                  
                 }
 
                 // Get user plain/ciphertext
                 validInput = false;
-                while (!validInput && !exit)
+                while (!validInput && !exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
-                        Console.WriteLine("Please enter your 8 bit plaintext for encryption:");
+                        Console.WriteLine("Please enter your number for encryption:");
                     else
-                        Console.WriteLine("Please enter your 8 bit ciphertext for decryption:");
+                        Console.WriteLine("Please enter your number for decryption:");
 
                     string userTextString = Console.ReadLine();
-                    userText = new BitArray(userTextString.Select(c => c == '1').ToArray());
-                    if (userText.Length == 8)
+                    if (userTextString.Length > 0 && Regex.Matches(userTextString, @"[0-9]").Count == userTextString.Length)
                     {
                         validInput = true;
-                        Console.WriteLine("Your eight bit text: " + tools.BitArrayToString(userText));
+                        input = BigInteger.Parse(userTextString);
+                        Console.WriteLine("Your number is: " + input.ToString());
                     }
                     else
                     {
@@ -69,53 +89,29 @@ namespace RSA
                             exit = true;
                             break;
                         }
-                        Console.WriteLine("Please enter exactly 8 bits (only 1 or 0) for the text...");
-                    }
-                }
-
-                // Get 10 bit key
-                validInput = false;
-                while (!validInput && !exit)
-                {
-                    Console.WriteLine("Please enter a 10 Bit Key");
-                    string userKeyString = Console.ReadLine();
-                    userKey = new BitArray(userKeyString.Select(c => c == '1').ToArray());
-                    if (userKey.Length == 10)
-                    {
-                        validInput = true;
-                        Console.WriteLine("Your ten bit key: " + tools.BitArrayToString(userKey));
-                    }
-                    else
-                    {
-                        if (userKeyString[0] == 'Q' || userKeyString[0] == 'q')
-                        {
-                            exit = true;
-                            break;
-                        }
-                        Console.WriteLine("Please enter exactly 10 bits (only 1 or 0) for the key...");
+                        Console.WriteLine("Please enter a number...\n");
                     }
                 }
 
                 // Output Keys and plain/ciphertext here
-                if (!exit)
+                if (!exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
                     // Generate Keys here
 
-                    keys = tools.GenerateKeys(userKey);
+                    //kit.GenerateKeys();
 
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
-                        outText = tools.Encrypt(userText, userKey);
-                        Console.WriteLine("Your encrypted ciphertext: " + tools.BitArrayToString(outText));
+                        //output = kit.Encrypt(input);
+                        output = BigInteger.Parse("111111111111111111111111111111111111111111111");         //TODO: Remove this
+                        Console.WriteLine("Your encrypted number: " + output.ToString());
                     }
                     else
                     {
-                        outText = tools.Decrypt(userText, userKey);
-                        Console.WriteLine("Your Decrypted plaintext: " + tools.BitArrayToString(outText));
+                        //output = kit.Decrypt(input);
+                        output = BigInteger.Parse("111111111111111111111111111111111111111111111");         //TODO: Remove this
+                        Console.WriteLine("Your decrypted number: " + output.ToString());
                     }
-                    Console.WriteLine("Your 8 bit keys are listed below...");
-                    Console.WriteLine("Key 1: " + tools.BitArrayToString(keys.firstItem));
-                    Console.WriteLine("Key 2: " + tools.BitArrayToString(keys.secondItem));
                 }
 
                 // Ask user if they want to quit
@@ -135,7 +131,7 @@ namespace RSA
                         validInput = true;
                     else
                     {
-                        Console.WriteLine("Please enter correct input...");
+                        Console.WriteLine("Please enter correct input.../n");
                     }
                 }
 
