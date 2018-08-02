@@ -3,13 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Numerics;
 
 namespace RSA
 {
     public class RSAKit
     {
-        int P = 0, Q = 0, E = 0;
+        BigInteger P = 0, Q = 0, E = 0;
+
+        public void GenerateArbitraryKeys()
+        {
+            var inFile = Directory.GetCurrentDirectory() + "primes.txt";
+            var logFile = File.ReadAllLines(inFile);
+            var primeList = new List<string>(logFile);
+
+
+
+        }
 
         public void GenerateKeys()
         {
@@ -17,47 +28,46 @@ namespace RSA
 
         }
 
-        public int Create_e()
+        public BigInteger Create_e()
         {
             // Generate e here
             return 0;
         }
 
-        public int Create_n()
+        public BigInteger Create_n()
         {
-            // Generate n here
             return P * Q;
         }
 
-        public int Phi()
+        public BigInteger Phi()
         {
             // Generate n here
             return (P-1) * (Q-1);
         }
 
-        public int Gcd()
+        public BigInteger Gcd()
         {
             // Generate gcd here
             return 0;
         }
 
-        public int Gcd_inv()
+        public BigInteger Gcd_inv()
         {
             // Generate gcd^-1 here
             return 0;
         }
 
-        public int Encrypt(int input)
+        public BigInteger Encrypt(BigInteger input)
         {
             return 0;
         }
 
-        public int Decrypt(int input)
+        public BigInteger Decrypt(BigInteger input)
         {
             return 0;
         }
 
-        private int Big_mod(int mod_base, int mod_exp, int mod_num)
+        private BigInteger Big_mod(BigInteger mod_base, BigInteger mod_exp, BigInteger mod_num)
         {
             // Cool mod logic
             return 0;
