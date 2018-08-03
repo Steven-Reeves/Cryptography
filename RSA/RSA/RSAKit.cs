@@ -17,7 +17,11 @@ namespace RSA
         }
         public List<string> GetPrimesFromFile(string filename)
         {
+<<<<<<< HEAD
             var inFile = Directory.GetCurrentDirectory() + filename;
+=======
+            var inFile = Directory.GetCurrentDirectory() + "\\primes.txt";
+>>>>>>> 112f7bcb1af96a291fd3d614031110dc82b5b378
             var logFile = File.ReadAllText(inFile);
 
             var punctuation = logFile.Where(Char.IsPunctuation).Distinct().ToArray();   //parsing pulled from stackoverflow,
@@ -91,7 +95,8 @@ namespace RSA
         public BigInteger Gcd_inv()
         {
             // Generate gcd^-1 here
-            return 0;
+            // This is broken!
+            return BigInteger.ModPow(E, Phi(), Create_n());
         }
 
         public BigInteger Encrypt(BigInteger input)

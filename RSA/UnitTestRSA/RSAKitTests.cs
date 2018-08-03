@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace RSA.Tests
 {
@@ -16,7 +17,11 @@ namespace RSA.Tests
         [TestInitialize()]
         public void Test_Init()
         {
+<<<<<<< HEAD
             kit = new RSAKit();
+=======
+
+>>>>>>> 112f7bcb1af96a291fd3d614031110dc82b5b378
         }
 
         [TestMethod()]
@@ -32,6 +37,7 @@ namespace RSA.Tests
         }
 
         [TestMethod()]
+<<<<<<< HEAD
         public void Big_modTestA()
         {
             BigInteger testInt = kit.Big_mod(3, 4, 4);
@@ -47,6 +53,15 @@ namespace RSA.Tests
             BigInteger expected = 10;
 
             Assert.AreEqual(expected, testInt);
+=======
+        public void Gcd_invTest()
+        {
+            RSAKit kit = new RSAKit();
+            kit.E = BigInteger.Parse("7");
+            kit.P = BigInteger.Parse("17");
+            kit.Q = BigInteger.Parse("11");
+            Assert.AreEqual("23", kit.Gcd_inv().ToString());
+>>>>>>> 112f7bcb1af96a291fd3d614031110dc82b5b378
         }
     }
 }
