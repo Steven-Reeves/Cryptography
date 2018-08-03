@@ -8,7 +8,7 @@ namespace RSA
 {
     public class RSAKit
     {
-        BigInteger P = new BigInteger(0), Q = new BigInteger(0), E = new BigInteger(0);
+        public BigInteger P = new BigInteger(0), Q = new BigInteger(0), E = new BigInteger(0);
         List<string> _integerList = new List<string>();
 
         public RSAKit()
