@@ -13,11 +13,11 @@ namespace RSA
 
         public RSAKit()
         {
-            _integerList = GetPrimesFromFile("primes.txt");
+            _integerList = GetPrimesFromFile("\\primes.txt");
         }
         public List<string> GetPrimesFromFile(string filename)
         {
-            var inFile = Directory.GetCurrentDirectory() + "primes.txt";
+            var inFile = Directory.GetCurrentDirectory() + filename;
             var logFile = File.ReadAllText(inFile);
 
             var punctuation = logFile.Where(Char.IsPunctuation).Distinct().ToArray();   //parsing pulled from stackoverflow,
@@ -104,12 +104,17 @@ namespace RSA
             return 0;
         }
 
-        private BigInteger Big_mod(BigInteger mod_base, BigInteger mod_exp, BigInteger mod_num)
+        public BigInteger Big_mod(BigInteger mod_base, BigInteger mod_exp, BigInteger mod_num)
         {
-            // Cool mod logic
-            return 0;
+            BigInteger carry = 1;
+
+            for(BigInteger i = 0; i < mod_exp; i++)
+            {
+                carry = (carry * mod_base) % mod_num;
+            }
+
+            return carry;
             // Dammit Phong! We're still doing it (maybe)
         }
-
     }
 }
