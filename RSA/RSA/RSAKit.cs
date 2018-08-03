@@ -36,7 +36,7 @@ namespace RSA
 
             for (int i = 0; i < 2; i++)
             {
-                while (randomIndexes.Contains(temp) || BigInteger.Parse(_integerList[randomIndexes[temp]]) < BigInteger.Parse("40000"))
+                while (randomIndexes.Contains(temp) || BigInteger.Parse(_integerList[temp]) < BigInteger.Parse("40000"))
                     temp = rand.Next(_integerList.Count);
 
                 randomIndexes.Add(temp);
