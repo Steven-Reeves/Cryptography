@@ -10,6 +10,7 @@ namespace RSA
     {
         public BigInteger P = new BigInteger(0), Q = new BigInteger(0), E = new BigInteger(0);
         List<string> _integerList = new List<string>();
+        private Random random = new Random();
 
         public RSAKit()
         {
@@ -22,6 +23,7 @@ namespace RSA
 
             var punctuation = logFile.Where(Char.IsPunctuation).Distinct().ToArray();   //parsing pulled from stackoverflow,
             var primes = logFile.Split().Select(x => x.Trim(punctuation));              //SUPER COOL
+            primes = primes.Where(x => x.Count() > 0);
             List<string> returnedPrimes = new List<string>(primes);
 
             return returnedPrimes;
@@ -31,13 +33,13 @@ namespace RSA
         {
             List<int> randomIndexes = new List<int>();
 
-            Random rand = new Random();
-            int temp = rand.Next(_integerList.Count);
+            
+            int temp = random.Next(_integerList.Count);
 
             for (int i = 0; i < 2; i++)
             {
                 while (randomIndexes.Contains(temp) || BigInteger.Parse(_integerList[temp]) < BigInteger.Parse("40000"))
-                    temp = rand.Next(_integerList.Count);
+                    temp = random.Next(_integerList.Count);
 
                 randomIndexes.Add(temp);
             }
@@ -49,7 +51,7 @@ namespace RSA
         public void GenerateKeys()
         {
             GeneratePQ();
-            Create_e();
+            E = Create_e();
 
         }
 
@@ -57,7 +59,6 @@ namespace RSA
         {
             BigInteger E;
 
-            Random random = new Random();
             int rand = random.Next(_integerList.Count);
             BigInteger temp = BigInteger.Parse(_integerList[rand]);
 
