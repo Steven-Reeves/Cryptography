@@ -52,18 +52,21 @@ namespace RSA
 
                 if (!exit && (UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
+                    kit.GenerateKeys();
                     Console.WriteLine("Generated Key set 1:");
-                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");                    
-                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
-                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");
+                    Console.WriteLine("\t P: " + kit.P.ToString());
+                    Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
+                    kit.GenerateKeys();
                     Console.WriteLine("Generated Key set 2:");
-                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");
-                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
-                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");
+                    Console.WriteLine("\t P: " + kit.P.ToString());
+                    Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
+                    kit.GenerateKeys();
                     Console.WriteLine("Generated Key set 3:");
-                    Console.WriteLine("\t P: <RSAKit.GenerateKey>");
-                    Console.WriteLine("\t Q: <RSAKit.GenerateKey>");
-                    Console.WriteLine("\t E: <RSAKit.GenerateKey>\n");                  
+                    Console.WriteLine("\t P: " + kit.P.ToString());
+                    Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
                 }
 
                 // Get user plain/ciphertext
