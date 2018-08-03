@@ -17,11 +17,7 @@ namespace RSA
         }
         public List<string> GetPrimesFromFile(string filename)
         {
-<<<<<<< HEAD
             var inFile = Directory.GetCurrentDirectory() + filename;
-=======
-            var inFile = Directory.GetCurrentDirectory() + "\\primes.txt";
->>>>>>> 112f7bcb1af96a291fd3d614031110dc82b5b378
             var logFile = File.ReadAllText(inFile);
 
             var punctuation = logFile.Where(Char.IsPunctuation).Distinct().ToArray();   //parsing pulled from stackoverflow,
