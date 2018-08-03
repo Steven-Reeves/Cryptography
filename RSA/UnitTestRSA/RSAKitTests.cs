@@ -48,6 +48,8 @@ namespace RSA.Tests
 
             Assert.AreEqual(expected, testInt);
         }
+
+        [TestMethod()]
         public void Gcd_invTest()
         {
             RSAKit kit = new RSAKit();
@@ -55,6 +57,46 @@ namespace RSA.Tests
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
             Assert.AreEqual("23", kit.Gcd_inv().ToString());
+        }
+
+        [TestMethod()]
+        public void PhiTestA()
+        {
+            BigInteger expected = new BigInteger(12);
+            kit.P = 4;
+            kit.Q = 5;
+
+            Assert.AreEqual(expected, kit.Phi());
+        }
+
+        [TestMethod()]
+        public void PhiTestB()
+        {
+            BigInteger expected = new BigInteger(60);
+            kit.P = 7;
+            kit.Q = 11;
+
+            Assert.AreEqual(expected, kit.Phi());
+        }
+
+        [TestMethod()]
+        public void Create_nTestA()
+        {
+            BigInteger expected = new BigInteger(77);
+            kit.P = 7;
+            kit.Q = 11;
+
+            Assert.AreEqual(expected, kit.Create_n());
+        }
+
+        [TestMethod()]
+        public void Create_nTestB()
+        {
+            BigInteger expected = new BigInteger(35);
+            kit.P = 7;
+            kit.Q = 5;
+
+            Assert.AreEqual(expected, kit.Create_n());
         }
     }
 }
