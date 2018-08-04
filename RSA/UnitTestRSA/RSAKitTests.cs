@@ -130,6 +130,7 @@ namespace RSA.Tests
             kit.E = BigInteger.Parse("7");
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
+            kit.N = kit.Create_n();
             BigInteger result = kit.Encrypt(input);
             Assert.AreEqual(expected, result);
         }
