@@ -19,7 +19,7 @@ namespace RSA
             bool exit = false;
             bool validInput = false;
             string validCharacters = "eEdDqGgQq";
-            BigInteger input;
+            BigInteger input = new BigInteger();
             BigInteger output;
 
             // Loop to allow user to replay
@@ -101,12 +101,9 @@ namespace RSA
                 {
                     // Generate Keys here
 
-                    //kit.GenerateKeys();
-
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
-                        //output = kit.Encrypt(input);
-                        output = BigInteger.Parse("111111111111111111111111111111111111111111111");         //TODO: Remove this
+                        output = kit.Encrypt(input);
                         Console.WriteLine("Your encrypted number: " + output.ToString());
                     }
                     else

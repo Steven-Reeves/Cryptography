@@ -52,7 +52,6 @@ namespace RSA.Tests
         [TestMethod()]
         public void Gcd_invTest()
         {
-            RSAKit kit = new RSAKit();
             kit.E = BigInteger.Parse("7");
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
@@ -97,6 +96,29 @@ namespace RSA.Tests
             kit.Q = 5;
 
             Assert.AreEqual(expected, kit.Create_n());
+        }
+
+        [TestMethod()]
+        public void GcdTest()
+        {
+            BigInteger expected = new BigInteger(1);
+            kit.E = BigInteger.Parse("7");
+            kit.P = BigInteger.Parse("17");
+            kit.Q = BigInteger.Parse("11");
+            BigInteger result = kit.Gcd();
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void EncryptTest()
+        {
+            BigInteger expected = new BigInteger(128);
+            BigInteger input = new BigInteger(2);
+            kit.E = BigInteger.Parse("7");
+            kit.P = BigInteger.Parse("17");
+            kit.Q = BigInteger.Parse("11");
+            BigInteger result = kit.Encrypt(input);
+            Assert.AreEqual(expected, result);
         }
     }
 }

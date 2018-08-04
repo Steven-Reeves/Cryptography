@@ -84,9 +84,8 @@ namespace RSA
         }
 
         public BigInteger Gcd()
-        {
-            // Generate gcd here
-            return 0;
+        {            
+            return BigInteger.GreatestCommonDivisor(E, Phi());
         }
 
         public BigInteger Gcd_inv()
@@ -98,7 +97,7 @@ namespace RSA
 
         public BigInteger Encrypt(BigInteger input)
         {
-            return 0;
+            return Big_mod(input, E, Create_n());
         }
 
         public BigInteger Decrypt(BigInteger input)
