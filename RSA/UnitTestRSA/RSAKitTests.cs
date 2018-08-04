@@ -61,6 +61,17 @@ namespace RSA.Tests
         }
 
         [TestMethod()]
+        public void Gcd_inv_RTest()
+        {
+            BigInteger expected = new BigInteger(107);
+            kit.E = 7;
+            kit.P = 17;
+            kit.Q = 11;
+            BigInteger result = kit.Gcd_inv_R();
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
         public void PhiTestA()
         {
             BigInteger expected = new BigInteger(12);

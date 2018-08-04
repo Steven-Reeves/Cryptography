@@ -8,7 +8,7 @@ namespace RSA
 {
     public class RSAKit
     {
-        public BigInteger P = new BigInteger(0), Q = new BigInteger(0), E = new BigInteger(0);
+        public BigInteger P = new BigInteger(0), Q = new BigInteger(0), E = new BigInteger(0), D = new BigInteger(0);
         List<string> _integerList = new List<string>();
         private Random random = new Random();
 
@@ -32,7 +32,6 @@ namespace RSA
         public void GeneratePQ()
         {
             List<int> randomIndexes = new List<int>();
-
             
             int temp = random.Next(_integerList.Count);
 
@@ -51,14 +50,12 @@ namespace RSA
         public void GenerateKeys()
         {
             GeneratePQ();
-            E = Create_e();
-
+            Create_e();
+            D = Gcd_inv_R();
         }
 
-        public BigInteger Create_e()
+        public void Create_e()
         {
-            BigInteger E;
-
             int rand = random.Next(_integerList.Count);
             BigInteger temp = BigInteger.Parse(_integerList[rand]);
 
@@ -69,8 +66,6 @@ namespace RSA
             }
 
             E = temp;
-
-            return E;
         }
 
         public BigInteger Create_n()
@@ -129,7 +124,7 @@ namespace RSA
 
         public BigInteger Decrypt(BigInteger input)
         {
-            return Big_mod(input, Gcd_inv(), Create_n());
+            return Big_mod(input, D, Create_n());
         }
 
         public BigInteger Big_mod(BigInteger mod_base, BigInteger mod_exp, BigInteger mod_num)
