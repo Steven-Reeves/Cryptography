@@ -90,9 +90,23 @@ namespace RSA
 
         public BigInteger Gcd_inv()
         {
-            // Generate gcd^-1 here
-            // This is broken!
-            return BigInteger.ModPow(E, Phi(), Create_n());
+            // GCD inverse is just inverse modulus
+            BigInteger i = Phi(), v = 0, d = 1, a = E;
+            while (a > 0)
+            {
+                BigInteger t = i / a, x = a;
+                a = i % x;
+                i = x;
+                x = d;
+                d = v - t * x;
+                v = x;
+            }
+            v %= Phi();
+
+            if (v < 0)
+                v = (v + Phi()) % Phi();
+
+            return v;
         }
 
         public BigInteger Encrypt(BigInteger input)
@@ -102,7 +116,7 @@ namespace RSA
 
         public BigInteger Decrypt(BigInteger input)
         {
-            return 0;
+            return Big_mod(input, Gcd_inv(), Create_n());
         }
 
         public BigInteger Big_mod(BigInteger mod_base, BigInteger mod_exp, BigInteger mod_num)
@@ -114,8 +128,7 @@ namespace RSA
                 carry = (carry * mod_base) % mod_num;
             }
 
-            return carry;
-            // Dammit Phong! We're still doing it (maybe)
+            return carry;           
         }
     }
 }

@@ -20,7 +20,7 @@ namespace RSA
             bool validInput = false;
             string validCharacters = "eEdDqGgQq";
             BigInteger input = new BigInteger();
-            BigInteger output;
+            BigInteger output = new BigInteger();
 
             // Loop to allow user to replay
             while (!exit)
@@ -99,7 +99,10 @@ namespace RSA
                 // Output Keys and plain/ciphertext here
                 if (!exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
-                    // Generate Keys here
+                    Console.WriteLine("Using Key set 3:");
+                    Console.WriteLine("\t P: " + kit.P.ToString());
+                    Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
 
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
@@ -108,8 +111,7 @@ namespace RSA
                     }
                     else
                     {
-                        //output = kit.Decrypt(input);
-                        output = BigInteger.Parse("111111111111111111111111111111111111111111111");         //TODO: Remove this
+                        output = kit.Decrypt(input);
                         Console.WriteLine("Your decrypted number: " + output.ToString());
                     }
                 }

@@ -52,10 +52,12 @@ namespace RSA.Tests
         [TestMethod()]
         public void Gcd_invTest()
         {
+            BigInteger expected = new BigInteger(23);
             kit.E = BigInteger.Parse("7");
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
-            Assert.AreEqual("23", kit.Gcd_inv().ToString());
+            BigInteger result = kit.Gcd_inv();
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod()]
@@ -118,6 +120,18 @@ namespace RSA.Tests
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
             BigInteger result = kit.Encrypt(input);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void DecryptTest()
+        {
+            BigInteger expected = new BigInteger(2);
+            BigInteger input = new BigInteger(128);
+            kit.E = BigInteger.Parse("7");
+            kit.P = BigInteger.Parse("17");
+            kit.Q = BigInteger.Parse("11");
+            BigInteger result = kit.Decrypt(input);
             Assert.AreEqual(expected, result);
         }
     }
