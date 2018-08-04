@@ -109,6 +109,19 @@ namespace RSA
             return v;
         }
 
+        public BigInteger Gcd_inv_R()
+        {
+            int k = 1;
+            BigInteger n = Create_n();
+
+            while (BigInteger.Pow(E, k) % n != 1)
+                k++;
+
+            BigInteger d = BigInteger.Pow(E, k - 1) % n;
+
+            return d;
+        }
+
         public BigInteger Encrypt(BigInteger input)
         {
             return Big_mod(input, E, Create_n());
