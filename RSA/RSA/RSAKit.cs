@@ -37,7 +37,7 @@ namespace RSA
 
             for (int i = 0; i < 2; i++)
             {
-                while (randomIndexes.Contains(temp) || BigInteger.Parse(_integerList[temp]) < BigInteger.Parse("40000"))
+                while (randomIndexes.Contains(temp) || BigInteger.Parse(_integerList[temp]) < BigInteger.Parse("20000"))
                     temp = random.Next(_integerList.Count);
 
                 randomIndexes.Add(temp);
@@ -108,14 +108,13 @@ namespace RSA
         public BigInteger Gcd_inv_R()
         {
             int k = 1;
-            BigInteger n = Create_n();
 
-            while (BigInteger.Pow(E, k) % n != 1)
+            while (BigInteger.Pow(E, k) % N != 1)
                 k++;
 
-            BigInteger d = BigInteger.Pow(E, k - 1) % n;
+            D = BigInteger.Pow(E, k - 1) % N;
 
-            return d;
+            return D;
         }
 
         public BigInteger Encrypt(BigInteger input)
