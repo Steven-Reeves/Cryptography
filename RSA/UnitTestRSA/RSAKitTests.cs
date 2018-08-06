@@ -144,6 +144,8 @@ namespace RSA.Tests
             kit.E = BigInteger.Parse("7");
             kit.P = BigInteger.Parse("17");
             kit.Q = BigInteger.Parse("11");
+            kit.N = kit.Create_n();
+            kit.D = kit.Gcd_inv_R();
             BigInteger result = kit.Decrypt(input);
             Assert.AreEqual(expected, result);
         }
