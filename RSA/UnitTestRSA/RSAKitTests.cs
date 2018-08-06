@@ -67,6 +67,7 @@ namespace RSA.Tests
             kit.E = 7;
             kit.P = 17;
             kit.Q = 11;
+            kit.N = kit.Create_n();
             BigInteger result = kit.Gcd_inv_R();
             Assert.AreEqual(expected, result);
         }
