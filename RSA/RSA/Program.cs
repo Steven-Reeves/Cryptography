@@ -15,6 +15,7 @@ namespace RSA
         static void Main(string[] args)
         {
             RSAKit kit = new RSAKit();
+            List<KeySet> keyList = new List<KeySet>();
             string UserChoice = "";
             bool exit = false;
             bool validInput = false;
@@ -52,21 +53,29 @@ namespace RSA
 
                 if (!exit && (UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
-                    kit.GenerateKeys();
+                    keyList.Add(kit.GenerateKeys());
                     Console.WriteLine("Generated Key set 1:");
-                    Console.WriteLine("\t P: " + kit.P.ToString());
-                    Console.WriteLine("\t Q: " + kit.Q.ToString());
-                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
-                    kit.GenerateKeys();
+                    //Console.WriteLine("\t P: " + kit.P.ToString());
+                    //Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + keyList[0].E.ToString() + "\n");
+                    Console.WriteLine("\t D: " + keyList[0].D.ToString() + "\n");
+                    Console.WriteLine("\t N: " + keyList[0].N.ToString() + "\n");
+                    //kit.GenerateKeys();
+                    keyList.Add(kit.GenerateKeys());
                     Console.WriteLine("Generated Key set 2:");
-                    Console.WriteLine("\t P: " + kit.P.ToString());
-                    Console.WriteLine("\t Q: " + kit.Q.ToString());
-                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
-                    kit.GenerateKeys();
+                    //Console.WriteLine("\t P: " + kit.P.ToString());
+                    //Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + keyList[1].E.ToString() + "\n");
+                    Console.WriteLine("\t D: " + keyList[1].D.ToString() + "\n");
+                    Console.WriteLine("\t N: " + keyList[1].N.ToString() + "\n");
+                    //kit.GenerateKeys();
+                    keyList.Add(kit.GenerateKeys());
                     Console.WriteLine("Generated Key set 3:");
-                    Console.WriteLine("\t P: " + kit.P.ToString());
-                    Console.WriteLine("\t Q: " + kit.Q.ToString());
-                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
+                    //Console.WriteLine("\t P: " + kit.P.ToString());
+                    //Console.WriteLine("\t Q: " + kit.Q.ToString());
+                    Console.WriteLine("\t E: " + keyList[2].E.ToString() + "\n");
+                    Console.WriteLine("\t D: " + keyList[2].D.ToString() + "\n");
+                    Console.WriteLine("\t N: " + keyList[2].N.ToString() + "\n");
                 }
 
                 // Get user plain/ciphertext
@@ -100,9 +109,9 @@ namespace RSA
                 if (!exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
                     Console.WriteLine("Using Key set 3:");
-                    Console.WriteLine("\t P: " + kit.P.ToString());
-                    Console.WriteLine("\t Q: " + kit.Q.ToString());
-                    Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
+                    Console.WriteLine("\t E: " + keyList[2].E.ToString() + "\n");
+                    Console.WriteLine("\t D: " + keyList[2].D.ToString() + "\n");
+                    Console.WriteLine("\t N: " + keyList[2].N.ToString() + "\n");
 
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
