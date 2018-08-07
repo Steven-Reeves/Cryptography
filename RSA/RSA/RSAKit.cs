@@ -71,7 +71,8 @@ namespace RSA
 
         public BigInteger Create_n()
         {
-            return P * Q;
+            N = P * Q;
+            return N;
         }
 
         public BigInteger Phi()
@@ -108,11 +109,14 @@ namespace RSA
         public BigInteger Gcd_inv_R()
         {
             int k = 1;
-
-            while (BigInteger.Pow(E, k) % N != 1)
+            BigInteger modReturn = E;
+            while (modReturn != 1)
+            {
                 k++;
+                modReturn = (modReturn * E) % Phi();
+            }
 
-            D = BigInteger.Pow(E, k - 1) % N;
+            D = Big_mod(E, k - 1, Phi());
 
             return D;
         }

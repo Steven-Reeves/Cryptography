@@ -28,7 +28,10 @@ namespace RSA.Tests
         [TestMethod()]
         public void Create_nTest()
         {
-            Assert.Fail();
+            kit.P = 3;
+            kit.Q = 5;
+
+            Assert.AreEqual(15, kit.Create_n());
         }
 
         [TestMethod()]
@@ -63,7 +66,7 @@ namespace RSA.Tests
         [TestMethod()]
         public void Gcd_inv_RTest()
         {
-            BigInteger expected = new BigInteger(107);
+            BigInteger expected = new BigInteger(23);
             kit.E = 7;
             kit.P = 17;
             kit.Q = 11;
