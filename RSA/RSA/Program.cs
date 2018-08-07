@@ -21,6 +21,7 @@ namespace RSA
             bool validInput = false;
             string validCharacters = "eEdDqGgQq";
             BigInteger input = new BigInteger();
+            BigInteger input_N = new BigInteger();
             BigInteger output = new BigInteger();
 
             // Loop to allow user to replay
@@ -105,13 +106,38 @@ namespace RSA
                     }
                 }
 
+                // Get and set N
+                validInput = false;
+                while (!validInput && !exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
+                {
+                    Console.WriteLine("Please enter N: ");
+
+                    string userTextString_N = Console.ReadLine();
+                    if (userTextString_N.Length > 0 && Regex.Matches(userTextString_N, @"[0-9]").Count == userTextString_N.Length)
+                    {
+                        validInput = true;
+                        input_N = BigInteger.Parse(userTextString_N);
+                        Console.WriteLine("N has been set to: " + input_N.ToString());
+                        kit.N = input_N;
+                    }
+                    else
+                    {
+                        if (userTextString_N[0] == 'Q' || userTextString_N[0] == 'q')
+                        {
+                            exit = true;
+                            break;
+                        }
+                        Console.WriteLine("Please enter a number...\n");
+                    }
+                }
+
                 // Output Keys and plain/ciphertext here
                 if (!exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
                     Console.WriteLine("Using Key set 3:");
                     Console.WriteLine("\t E: " + keyList[2].E.ToString() + "\n");
                     Console.WriteLine("\t D: " + keyList[2].D.ToString() + "\n");
-                    Console.WriteLine("\t N: " + keyList[2].N.ToString() + "\n");
+                    Console.WriteLine("\t N: " + kit.N.ToString() + "\n");
 
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
