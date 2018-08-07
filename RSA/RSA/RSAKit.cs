@@ -47,12 +47,14 @@ namespace RSA
             Q = BigInteger.Parse(_integerList[randomIndexes[1]]);
         }
 
-        public void GenerateKeys()
+        public KeySet GenerateKeys()
         {
             GeneratePQ();
             Create_e();
             N = Create_n();
             D = Gcd_inv_R();
+
+            return new KeySet(E, D, N);
         }
 
         public void Create_e()

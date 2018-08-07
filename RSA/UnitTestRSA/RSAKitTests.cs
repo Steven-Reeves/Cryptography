@@ -22,7 +22,11 @@ namespace RSA.Tests
         [TestMethod()]
         public void GenerateKeysTest()
         {
-            Assert.Fail();
+            var keySet = kit.GenerateKeys();
+
+            Assert.IsTrue(kit.E > 10000);
+            Assert.IsTrue(kit.P > 10000);
+            Assert.IsTrue(kit.Q > 10000);
         }
 
         [TestMethod()]
