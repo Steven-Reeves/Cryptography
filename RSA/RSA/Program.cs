@@ -22,6 +22,7 @@ namespace RSA
             string validCharacters = "eEdDqGgQq";
             BigInteger input = new BigInteger();
             BigInteger input_N = new BigInteger();
+            BigInteger input_ED = new BigInteger();
             BigInteger output = new BigInteger();
 
             // Loop to allow user to replay
@@ -106,6 +107,33 @@ namespace RSA
                     }
                 }
 
+                // Get user E or D
+                validInput = false;
+                while (!validInput && !exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
+                {
+                    if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
+                        Console.WriteLine("Please enter E:");
+                    else
+                        Console.WriteLine("Please enter D:");
+
+                    string userTextString_ED = Console.ReadLine();
+                    if (userTextString_ED.Length > 0 && Regex.Matches(userTextString_ED, @"[0-9]").Count == userTextString_ED.Length)
+                    {
+                        validInput = true;
+                        input_ED = BigInteger.Parse(userTextString_ED);
+                        //Console.WriteLine("Your number is: " + input.ToString());
+                    }
+                    else
+                    {
+                        if (userTextString_ED[0] == 'Q' || userTextString_ED[0] == 'q')
+                        {
+                            exit = true;
+                            break;
+                        }
+                        Console.WriteLine("Please enter a number...\n");
+                    }
+                }
+
                 // Get and set N
                 validInput = false;
                 while (!validInput && !exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
@@ -134,18 +162,24 @@ namespace RSA
                 // Output Keys and plain/ciphertext here
                 if (!exit && !(UserChoice[0] == 'g' || UserChoice[0] == 'G'))
                 {
-                    Console.WriteLine("Using Key set 3:");
-                    Console.WriteLine("\t E: " + keyList[2].E.ToString() + "\n");
-                    Console.WriteLine("\t D: " + keyList[2].D.ToString() + "\n");
+                    // Use these lines if you want to use generated keys
+                    //Console.WriteLine("Using Key set 3:");
+
                     Console.WriteLine("\t N: " + kit.N.ToString() + "\n");
 
                     if (UserChoice[0] == 'e' || UserChoice[0] == 'E')
                     {
+                        // Comment out this line to use generated keys
+                        kit.E = input_ED;
+                        Console.WriteLine("\t E: " + kit.E.ToString() + "\n");
                         output = kit.Encrypt(input);
                         Console.WriteLine("Your encrypted number: " + output.ToString());
                     }
                     else
                     {
+                        // Comment out this line to use generated keys
+                        kit.D = input_ED;
+                        Console.WriteLine("\t D: " + kit.D.ToString() + "\n");
                         output = kit.Decrypt(input);
                         Console.WriteLine("Your decrypted number: " + output.ToString());
                     }
