@@ -12,6 +12,7 @@ namespace PlayfairCryptanalysis.Tests
     public class PlayfairTests
     {
         Playfair playfair;
+
         [TestInitialize()]
         public void Test_Init()
         {
@@ -62,6 +63,23 @@ namespace PlayfairCryptanalysis.Tests
         {
             string expected = "SHBHMUWUUZ";
             string result = playfair.Encrypt("plaintext");
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void DecryptTest()
+        {
+            string expected = "BLHAKDUKVZ";
+            string result = playfair.Decrypt("CIPHERTEXT");
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void EncryptDecryptTest()
+        {
+            string expected = "AWESOMESECRETX";
+            string cipher = playfair.Encrypt("AWESOMESECRET");
+            string result = playfair.Decrypt(cipher);
             Assert.AreEqual(expected, result);
         }
     }

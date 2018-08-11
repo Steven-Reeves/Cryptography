@@ -158,5 +158,60 @@ namespace PlayfairCryptanalysis
             return result.ToArray();
         }
 
+        public string Decrypt(string ciphertext)
+        {
+            char[] input = CleanString(ciphertext);
+            StringBuilder result = new StringBuilder(input.Length);
+
+            int[] bufferPos = new int[2];
+            int[] pos = new int[2];
+            for (int i = 0; i < input.Length; i++)
+            {
+                if ((i & 1) == 0)
+                {
+                    bufferPos = SearchArray(input[i], playfairArray);
+                    continue;
+                }
+                pos = SearchArray(ciphertext[i], playfairArray);
+                if (bufferPos[0] == pos[0])
+                {
+                    // Same row!
+                    bufferPos[1] += 9;
+                    bufferPos[1] -= ((bufferPos[1] * 7) >> 5) * 5;
+                    pos[1] += 9;
+                    pos[1] -= ((pos[1] * 7) >> 5) * 5;
+
+                    if (bufferPos[1] == pos[1])
+                    {
+                        // Last letters are identical... (possible for XX)
+                        bufferPos[0] += 9;
+                        bufferPos[0] -= ((bufferPos[0] * 7) >> 5) * 5;
+                        pos[0] += 9;
+                        pos[0] -= ((pos[0] * 7) >> 5) * 5;
+                        result.Append(playfairArray[(bufferPos[0] * 5) + bufferPos[1]]);
+                        result.Append(playfairArray[(pos[0] * 5) + pos[1]]);
+                        continue;
+                    }
+                }
+                else if (bufferPos[1] == pos[1])
+                {
+                    // Same column!
+                    bufferPos[0] += 9;
+                    bufferPos[0] -= ((bufferPos[0] * 7) >> 5) * 5;
+                    pos[0] += 9;
+                    pos[0] -= ((pos[0] * 7) >> 5) * 5;
+                }
+                else
+                {
+                    // Anything else!
+                    int buffer = bufferPos[1];
+                    bufferPos[1] = pos[1];
+                    pos[1] = buffer;
+                }
+                result.Append(playfairArray[(bufferPos[0] * 5) + bufferPos[1]]);
+                result.Append(playfairArray[(pos[0] * 5) + pos[1]]);
+            }
+            return result.ToString();
+        }
     }
 }
