@@ -61,7 +61,7 @@ namespace PlayfairCryptanalysis
                 stopCount++;
 
                 var moddedKey = RandomSwap(currentKey);
-                //plainText = Decrypt(cipherText);
+                //plainText = Decrypt(cipherText, currentKey);
                 //currentFitness = Analyze(plainText);
 
                 if(currentFitness > parentFitness)
@@ -71,6 +71,8 @@ namespace PlayfairCryptanalysis
                     stopCount = 0;
                 }
             }
+
+            //plainText = Decrypt(cipherText, currentKey);
 
             return plainText;
         }
