@@ -8,5 +8,6 @@ namespace PlayfairCryptanalysis
 {
     class Analyzer
     {
+
     }
 }
