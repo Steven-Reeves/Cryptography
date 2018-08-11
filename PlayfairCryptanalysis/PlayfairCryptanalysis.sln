@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayfairCryptanalysis", "PlayfairCryptanalysis\PlayfairCryptanalysis.csproj", "{856FCB07-8F6B-4F8B-B647-F13158D29ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayfairCryptanalysisTests", "PlayfairCryptanalysisTests\PlayfairCryptanalysisTests.csproj", "{DEBE2815-2EF4-4979-8F0B-B32E123E10EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{856FCB07-8F6B-4F8B-B647-F13158D29ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{856FCB07-8F6B-4F8B-B647-F13158D29ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{856FCB07-8F6B-4F8B-B647-F13158D29ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEBE2815-2EF4-4979-8F0B-B32E123E10EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEBE2815-2EF4-4979-8F0B-B32E123E10EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEBE2815-2EF4-4979-8F0B-B32E123E10EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEBE2815-2EF4-4979-8F0B-B32E123E10EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
