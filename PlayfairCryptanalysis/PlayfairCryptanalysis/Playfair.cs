@@ -59,6 +59,20 @@ namespace PlayfairCryptanalysis
             return result;
         }
 
- 
+        public int[] SearchArray (char c, char[] array)
+        {
+            //Row
+            for (int i = 0; i < 5; i++)
+            {
+                //Column
+                for (int j = 0; j < 5; j++)
+                {
+                    if (array[(i * 5) + j] == c)
+                        return new int[] { i, j };
+                }
+            }
+            return null;
+        }
+
     }
 }

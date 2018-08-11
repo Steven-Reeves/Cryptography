@@ -12,6 +12,11 @@ namespace PlayfairCryptanalysis.Tests
     public class PlayfairTests
     {
         Playfair playfair;
+        [TestInitialize()]
+        public void Test_Init()
+        {
+            playfair = new Playfair("keyword");
+        }
 
         [TestMethod()]
         public void PlayfairTest()
@@ -32,5 +37,24 @@ namespace PlayfairCryptanalysis.Tests
             Assert.AreEqual(expected, result);
         }
 
+        [TestMethod()]
+        public void SearchArrayTest()
+        {
+            char A = 'A';
+            int [] result = playfair.SearchArray(A, playfair.playfairArray);
+            int[] expected = new int[] { 1, 2 };
+            Assert.AreEqual(expected[0], result[0]);
+            Assert.AreEqual(expected[1], result[1]);
+        }
+
+        [TestMethod()]
+        public void SearchArrayTest2()
+        {
+            char X = 'X';
+            int[] result = playfair.SearchArray(X, playfair.playfairArray);
+            int[] expected = new int[] { 4, 3 };
+            Assert.AreEqual(expected[0], result[0]);
+            Assert.AreEqual(expected[1], result[1]);
+        }
     }
 }
