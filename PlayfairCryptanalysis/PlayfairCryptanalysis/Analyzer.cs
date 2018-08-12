@@ -23,7 +23,7 @@ namespace PlayfairCryptanalysis
             
         }
 
-        int TrigraphScore(string plainText)
+        public int TrigraphScore(string plainText)
         {
             var text = plainText.ToCharArray();
             var score = 0;

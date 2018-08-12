@@ -8,11 +8,18 @@ namespace PlayfairCryptanalysis
         string cipherKey = "";
         Random rand;
         Analyzer analyzer = new Analyzer();
+        Playfair decoder;
 
+        public AnnealingAlgorithm()
+        {
+            rand = new Random();
+            decoder = new Playfair(RandomKey());
+        }
         public AnnealingAlgorithm(string key)
         {
             cipherKey = key;
             rand = new Random();
+            decoder = new Playfair(RandomKey());
         }
 
         string RandomSwap(string key)
@@ -54,15 +61,17 @@ namespace PlayfairCryptanalysis
             int stopCount = 0;
             var currentKey = RandomKey();
             int currentFitness = 0;
-            int parentFitness = 0;           //TODO: get fitness of currentKey
+            
+            plainText = decoder.Decrypt(cipherText, currentKey);
+            int parentFitness = analyzer.TrigraphScore(plainText);
 
             while (stopCount < 1000)
             {
                 stopCount++;
 
                 var moddedKey = RandomSwap(currentKey);
-                //plainText = Decrypt(cipherText, currentKey);
-                //currentFitness = Analyze(plainText);
+                plainText = decoder.Decrypt(cipherText, currentKey);
+                currentFitness = analyzer.TrigraphScore(plainText);
 
                 if(currentFitness > parentFitness)
                 {
