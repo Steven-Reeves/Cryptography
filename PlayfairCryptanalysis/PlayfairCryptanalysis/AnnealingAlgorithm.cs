@@ -22,10 +22,10 @@ namespace PlayfairCryptanalysis
             decoder = new Playfair(RandomKey());
         }
 
-        string RandomSwap(string key)
+        string RandomSwap(string key, int keyIndex = 24)
         {
             char[] newKey = key.ToCharArray();
-            var index1 = rand.Next(24);
+            var index1 = rand.Next(keyIndex);
             var index2 = index1;
             while (index2 == index1)
             {
@@ -67,17 +67,18 @@ namespace PlayfairCryptanalysis
 
             int stopCount = 0;
             var currentKey = RandomKey();
+            string smallKey = currentKey.Substring(0, 5);
             int currentFitness = 0;
             
-            plainText = decoder.Decrypt(cipherText, currentKey);
+            plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5));
             int parentFitness = analyzer.TrigraphScore(plainText);
 
-            while (stopCount < 1000000)
+            while (stopCount < 10000)
             {
                 stopCount++;
 
-                var moddedKey = RandomSwap(currentKey);
-                plainText = decoder.Decrypt(cipherText, currentKey);
+                var moddedKey = RandomSwap(currentKey, 4);
+                plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5));
                 currentFitness = analyzer.TrigraphScore(plainText);
 
                 if(currentFitness > parentFitness)
@@ -90,9 +91,10 @@ namespace PlayfairCryptanalysis
 
             plainText = decoder.Decrypt(cipherText, currentKey);
 
-            string[] returnStrings = new string[2];
+            string[] returnStrings = new string[3];
             returnStrings[0] = plainText;
-            returnStrings[1] = currentKey;
+            returnStrings[1] = currentKey.Substring(0, 5);
+            returnStrings[2] = currentFitness.ToString();
 
             return returnStrings;               //TODO: return a key as well, return string array
         }
