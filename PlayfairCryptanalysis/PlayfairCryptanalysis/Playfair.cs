@@ -179,7 +179,7 @@ namespace PlayfairCryptanalysis
                     bufferPos = SearchArray(input[i], playfairArray);
                     continue;
                 }
-                pos = SearchArray(ciphertext[i], playfairArray);
+                pos = SearchArray(input[i], playfairArray);
                 if (bufferPos[0] == pos[0])
                 {
                     // Same row!
