@@ -7,7 +7,7 @@ namespace PlayfairCryptanalysis
     {
         string cipherKey = "";
         Random rand;
-        //Analyzer
+        Analyzer analyzer = new Analyzer();
 
         public AnnealingAlgorithm(string key)
         {
@@ -74,7 +74,7 @@ namespace PlayfairCryptanalysis
 
             //plainText = Decrypt(cipherText, currentKey);
 
-            return plainText;
+            return plainText;               //TODO: return a key as well, return string array
         }
     }
 }
