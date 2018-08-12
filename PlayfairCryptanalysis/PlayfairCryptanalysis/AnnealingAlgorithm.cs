@@ -54,7 +54,7 @@ namespace PlayfairCryptanalysis
             return randomKey;
         }
 
-        string GenericAnalysis(string cipherText)
+        public string[] GenericAnalysis(string cipherText)
         {
             string plainText = "";
 
@@ -65,7 +65,7 @@ namespace PlayfairCryptanalysis
             plainText = decoder.Decrypt(cipherText, currentKey);
             int parentFitness = analyzer.TrigraphScore(plainText);
 
-            while (stopCount < 1000)
+            while (stopCount < 10000)
             {
                 stopCount++;
 
@@ -81,9 +81,13 @@ namespace PlayfairCryptanalysis
                 }
             }
 
-            //plainText = Decrypt(cipherText, currentKey);
+            plainText = decoder.Decrypt(cipherText, currentKey);
 
-            return plainText;               //TODO: return a key as well, return string array
+            string[] returnStrings = new string[2];
+            returnStrings[0] = plainText;
+            returnStrings[1] = currentKey;
+
+            return returnStrings;               //TODO: return a key as well, return string array
         }
     }
 }
