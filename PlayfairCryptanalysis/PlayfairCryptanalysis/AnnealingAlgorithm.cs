@@ -24,7 +24,7 @@ namespace PlayfairCryptanalysis
 
         string RandomSwap(string key)
         {
-            var newKey = key.ToCharArray();
+            char[] newKey = key.ToCharArray();
             var index1 = rand.Next(24);
             var index2 = index1;
             while (index2 == index1)
@@ -36,7 +36,14 @@ namespace PlayfairCryptanalysis
             newKey[index1] = newKey[index2];
             newKey[index2] = temp;
 
-            return newKey.ToString();
+            string returnValue = "";
+
+            foreach(char c in newKey)
+            {
+                returnValue += c;
+            }
+
+            return returnValue;
         }
 
         string RandomKey()
@@ -65,7 +72,7 @@ namespace PlayfairCryptanalysis
             plainText = decoder.Decrypt(cipherText, currentKey);
             int parentFitness = analyzer.TrigraphScore(plainText);
 
-            while (stopCount < 10000)
+            while (stopCount < 1000000)
             {
                 stopCount++;
 

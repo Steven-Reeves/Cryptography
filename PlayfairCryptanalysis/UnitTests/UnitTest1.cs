@@ -18,7 +18,7 @@ namespace UnitTests
         [TestMethod]
         public void TestMethod1()
         {
-            var translation = testAlgorithm.GenericAnalysis("ZDNBYSXFPCNMDKEPGBPQPLHCPNTYKBTGSPKXEWVKRMRLMKNKTYUOPCKZITNPHZRYUGBSKMEBNMMVAVKNOFSWBMHNKHNXKOGBPLQEIGMY");
+            var translation = testAlgorithm.GenericAnalysis("XGLGUFAPDBULYBCOKFPIPSHKLCOLQRLFUDOUMRUSQUNEPQUEOLQGDBWRLYCLIXQZQKHIQPPKULBWGREUQEYXHPOWNSNPDLKFPSQMTDHU");
 
             File.WriteAllText("output.txt", translation[0] + "\n" + translation[1]);
         }
