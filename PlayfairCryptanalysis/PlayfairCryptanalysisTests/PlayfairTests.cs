@@ -82,5 +82,21 @@ namespace PlayfairCryptanalysis.Tests
             string result = playfair.Decrypt(cipher);
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod()]
+        public void DecryptTest1()
+        {
+            string expected = "IHQGUEUNVZ";
+            string result = playfair.Decrypt("CIPHERTEXT", "newkeyword");
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod()]
+        public void DecryptTestSpaces()
+        {
+            string expected = "IHQGUEUNVZFKEUYGXCQMOHYM";
+            string result = playfair.Decrypt("CIPHERTEXT HERE WITH SPACES", "newkeyword");
+            Assert.AreEqual(expected, result);
+        }
     }
 }

@@ -158,7 +158,14 @@ namespace PlayfairCryptanalysis
             return result.ToArray();
         }
 
-        public string Decrypt(string ciphertext)
+        public string Decrypt(string ciphertext, string key)
+        {
+            this.playfairArray = CreatePlayfairArray(key);          
+            string result = Decrypt(ciphertext);
+            return result;
+        }
+
+            public string Decrypt(string ciphertext)
         {
             char[] input = CleanString(ciphertext);
             StringBuilder result = new StringBuilder(input.Length);
