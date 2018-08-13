@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Math;
 
 namespace PlayfairCryptanalysis
 {
@@ -96,7 +97,55 @@ namespace PlayfairCryptanalysis
             returnStrings[1] = currentKey.Substring(0, 5);
             returnStrings[2] = currentFitness.ToString();
 
-            return returnStrings;               //TODO: return a key as well, return string array
+            return returnStrings;
+        }
+
+        public string[] SimulatedAnnealingAnalysis(string cipherText)
+        {
+            string plainText = "";
+
+            var currentKey = RandomKey();
+            string smallKey = currentKey.Substring(0, 5);
+            int currentFitness = 0;
+            int difference = 0;
+
+            plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5));
+            int parentFitness = analyzer.TrigraphScore(plainText);
+
+            for (double temperature = 10; temperature > 0; temperature-= .3)
+            {
+                int stopCount = 0;
+
+                while (stopCount < 100000)
+                {
+                    stopCount++;
+
+                    var moddedKey = RandomSwap(currentKey, 4);
+                    plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5)).ToLower();
+                    currentFitness = analyzer.TrigraphScore(plainText);
+                    difference = currentFitness - parentFitness;
+
+                    if (difference > 0)
+                    {
+                        currentKey = moddedKey;
+                        parentFitness = currentFitness;
+                    }
+                    else if (Pow(2.71, currentFitness/temperature) < rand.Next(100))
+                    {
+                        currentKey = moddedKey;
+                        parentFitness = currentFitness;
+                    }
+                }
+            }
+
+            plainText = decoder.Decrypt(cipherText, currentKey);
+
+            string[] returnStrings = new string[3];
+            returnStrings[0] = plainText;
+            returnStrings[1] = " " + currentKey.Substring(0, 5);
+            returnStrings[2] = " " + currentFitness.ToString();
+
+            return returnStrings;
         }
     }
 }
