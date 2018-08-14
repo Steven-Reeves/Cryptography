@@ -72,15 +72,15 @@ namespace PlayfairCryptanalysis
             int currentFitness = 0;
             
             plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5));
-            int parentFitness = analyzer.TrigraphScore(plainText);
+            int parentFitness = analyzer.TrigraphScore(plainText.ToLower());
 
-            while (stopCount < 10000)
+            while (stopCount < 50000)
             {
                 stopCount++;
 
                 var moddedKey = RandomSwap(currentKey, 4);
                 plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5));
-                currentFitness = analyzer.TrigraphScore(plainText);
+                currentFitness = analyzer.TrigraphScore(plainText.ToLower());
 
                 if(currentFitness > parentFitness)
                 {
@@ -105,24 +105,23 @@ namespace PlayfairCryptanalysis
             string plainText = "";
 
             var currentKey = RandomKey();
-            string smallKey = currentKey.Substring(0, 5);
             int currentFitness = 0;
             int difference = 0;
 
             plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5));
-            int parentFitness = analyzer.TrigraphScore(plainText);
+            int parentFitness = analyzer.FullScore(plainText);
 
-            for (double temperature = 10; temperature > 0; temperature-= .3)
+            for (double temperature = 1; temperature > 0; temperature -= .005)
             {
                 int stopCount = 0;
 
-                while (stopCount < 100000)
+                while (stopCount < 1000)
                 {
                     stopCount++;
 
                     var moddedKey = RandomSwap(currentKey, 4);
                     plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5)).ToLower();
-                    currentFitness = analyzer.TrigraphScore(plainText);
+                    currentFitness = analyzer.FullScore(plainText);
                     difference = currentFitness - parentFitness;
 
                     if (difference > 0)
@@ -130,7 +129,7 @@ namespace PlayfairCryptanalysis
                         currentKey = moddedKey;
                         parentFitness = currentFitness;
                     }
-                    else if (Pow(2.71, currentFitness/temperature) < rand.Next(100))
+                    else if (difference < 0 && 25 * Pow( 1.71, currentFitness/temperature) < rand.Next(40))
                     {
                         currentKey = moddedKey;
                         parentFitness = currentFitness;
@@ -138,7 +137,7 @@ namespace PlayfairCryptanalysis
                 }
             }
 
-            plainText = decoder.Decrypt(cipherText, currentKey);
+            plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5)).ToLower() + " ";
 
             string[] returnStrings = new string[3];
             returnStrings[0] = plainText;

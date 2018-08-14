@@ -9,10 +9,8 @@ namespace PlayfairCryptanalysis
     public class Analyzer
     {
         public int _currentDecrypt = 0;
-        int _score = 0;
-        int _key = 0;
 
-        readonly List<string> DIGRAPHS = new List<string>   //Includes common double-letters
+        readonly List<string> DIGRAPHS = new List<string>
         {
             "th", "er", "on", "an", "re", "he", "in", "ed", "nd", "ha", "at", "en",
             "es", "of", "or", "nt", "ea", "ti", "to", "it", "st", "io", "le", "is",
@@ -50,7 +48,35 @@ namespace PlayfairCryptanalysis
 
             return score;
         }
-        
+
+        public int DigraphScore(string plainText)
+        {
+            var text = plainText.ToCharArray();
+            var score = 0;
+
+            foreach (var d in DIGRAPHS)
+            {
+                var di = d.ToCharArray();
+
+                for (int i = 0; i < plainText.Length - 2; i++)
+                {
+                    if (di[0] == text[i] && di[1] == text[i + 1])
+                    {
+                        score++;
+                    }
+                }
+            }
+
+            return score;
+        }
+
+        public int FullScore(string plainText)
+        {
+            var score = DigraphScore(plainText) + TrigraphScore(plainText);
+
+            return score;
+        }
+
         public void TestScore()
         {
             Random _random = new Random();
