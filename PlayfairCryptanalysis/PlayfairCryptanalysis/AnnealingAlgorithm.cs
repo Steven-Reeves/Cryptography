@@ -103,6 +103,7 @@ namespace PlayfairCryptanalysis
         public string[] SimulatedAnnealingAnalysis(string cipherText)
         {
             string plainText = "";
+            string[] returnStrings = new string[3] { "", "", "0" };
 
             var currentKey = RandomKey();
             int currentFitness = 0;
@@ -111,38 +112,43 @@ namespace PlayfairCryptanalysis
             plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5));
             int parentFitness = analyzer.FullScore(plainText);
 
-            for (double temperature = 1; temperature > 0; temperature -= .005)
+            for (int i = 0; i < 5; i++)
             {
-                int stopCount = 0;
-
-                while (stopCount < 1000)
+                for (double temperature = 1; temperature > 0; temperature -= .005)
                 {
-                    stopCount++;
+                    int stopCount = 0;
 
-                    var moddedKey = RandomSwap(currentKey, 4);
-                    plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5)).ToLower();
-                    currentFitness = analyzer.FullScore(plainText);
-                    difference = currentFitness - parentFitness;
+                    while (stopCount < 200)
+                    {
+                        stopCount++;
 
-                    if (difference > 0)
-                    {
-                        currentKey = moddedKey;
-                        parentFitness = currentFitness;
-                    }
-                    else if (difference < 0 && 25 * Pow( 1.71, currentFitness/temperature) < rand.Next(40))
-                    {
-                        currentKey = moddedKey;
-                        parentFitness = currentFitness;
+                        var moddedKey = RandomSwap(currentKey, 4);
+                        plainText = decoder.Decrypt(cipherText, moddedKey.Substring(0, 5)).ToLower();
+                        currentFitness = analyzer.FullScore(plainText);
+                        difference = currentFitness - parentFitness;
+
+                        if (difference > 0)
+                        {
+                            currentKey = moddedKey;
+                            parentFitness = currentFitness;
+                        }
+                        else if (difference < 0 && 25 * Pow(1.71, currentFitness / temperature) < rand.Next(40))
+                        {
+                            currentKey = moddedKey;
+                            parentFitness = currentFitness;
+                        }
                     }
                 }
+
+                plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5)).ToLower() + " ";
+
+                if (analyzer.FullScore(plainText) > int.Parse(returnStrings[2]))
+                {
+                    returnStrings[0] = plainText;
+                    returnStrings[1] = currentKey.Substring(0, 5);
+                    returnStrings[2] = " " + analyzer.FullScore(plainText);
+                }
             }
-
-            plainText = decoder.Decrypt(cipherText, currentKey.Substring(0, 5)).ToLower() + " ";
-
-            string[] returnStrings = new string[3];
-            returnStrings[0] = plainText;
-            returnStrings[1] = " " + currentKey.Substring(0, 5);
-            returnStrings[2] = " " + currentFitness.ToString();
 
             return returnStrings;
         }

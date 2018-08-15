@@ -14,7 +14,7 @@ namespace PlayfairCryptanalysis
         {
             bool exit = false;
             bool validInput = false;
-            string ciphertext;
+            string ciphertext = "";
             string plaintext;
             string key;
             string inFile;
@@ -25,6 +25,7 @@ namespace PlayfairCryptanalysis
                 Console.WriteLine("Welcome!\n\n");
 
                 // Get user ciphertext
+                /*
                 validInput = false;
                 while (!validInput && !exit)
                 {
@@ -46,9 +47,10 @@ namespace PlayfairCryptanalysis
                         Console.WriteLine("Please enter only letters and spaces...\n");
                     }
                 }
+                */
 
                 //get input from file
-                /*
+                
                 validInput = false;
                 while (!validInput && !exit)
                 {
@@ -65,11 +67,14 @@ namespace PlayfairCryptanalysis
                         validInput = false;
                     }
                 }
-                */
+
+                AnnealingAlgorithm jefe = new AnnealingAlgorithm();
+                var outputStrings = jefe.SimulatedAnnealingAnalysis(ciphertext);
+
                 Console.WriteLine("Plaintext and key are below...\n");
                 // get plaintext and key from algorithm
-                Console.WriteLine("PLAINTEXT HERE");
-                Console.WriteLine("KEY HERE\n");
+                Console.WriteLine(outputStrings[0] + "\n");
+                Console.WriteLine(outputStrings[1] + "\n");
 
                 // Ask user if they want to quit
                 validInput = false;
@@ -93,7 +98,7 @@ namespace PlayfairCryptanalysis
                 }
             }
             Console.WriteLine("Exiting!");
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
